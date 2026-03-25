@@ -1,0 +1,90 @@
+import { mutation, query } from "./_generated/server";
+import { v } from "convex/values";
+
+export const createRoadmap = mutation({
+  args: {
+    userId: v.string(), // This is the Clerk ID
+    brandName: v.string(),
+    location: v.string(),
+    address: v.optional(v.string()),
+    category: v.optional(v.string()),
+    monthlyRevenue: v.optional(v.string()),
+    whatsapp: v.optional(v.string()),
+    data: v.any(),
+  },
+  handler: async (ctx, args) => {
+    // 1. Check if the user exists in our 'users' table
+    let user = await ctx.db
+      .query("users")
+      .withIndex("by_clerkId", (q) => q.eq("clerkId", args.userId))
+      .unique();
+
+    // 2. 🔥 UPSERT: If user doesn't exist, create them now!
+    if (!user) {
+      const identity = await ctx.auth.getUserIdentity();
+      await ctx.db.insert("users", {
+        clerkId: args.userId,
+        name: identity?.name ?? "Vigyapan User",
+        email: identity?.email ?? "pending-sync",
+        isPremium: false, // Default for new users
+      });
+    }
+
+    // 3. ENFORCE LIMITS (Check existing roadmaps for this user)
+    const existingRoadmaps = await ctx.db
+      .query("roadmaps")
+      .withIndex("by_user", (q) => q.eq("userId", args.userId))
+      .collect();
+
+    // Check premium status (re-fetch user if just created or updated)
+    user = await ctx.db
+      .query("users")
+      .withIndex("by_clerkId", (q) => q.eq("clerkId", args.userId))
+      .unique();
+      
+    const limit = user?.isPremium ? 100 : 3;
+
+    if (existingRoadmaps.length >= limit) {
+      throw new Error(`Limit reached. Free users can only generate ${limit} roadmaps.`);
+    }
+
+    // 4. SAVE THE ROADMAP
+    return await ctx.db.insert("roadmaps", {
+      userId: args.userId,
+      brandName: args.brandName,
+      location: args.location,
+      address: args.address,
+      category: args.category,
+      monthlyRevenue: args.monthlyRevenue,
+      whatsapp: args.whatsapp,
+      data: args.data,
+      createdAt: Date.now(),
+    });
+  },
+});
+
+// Query to list all roadmaps for the switcher
+export const listMyRoadmaps = query({
+  args: { userId: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db
+      .query("roadmaps")
+      .withIndex("by_user", (q) => q.eq("userId", args.userId))
+      .order("desc")
+      .collect();
+  },
+});
+
+// Fetch the latest roadmap for the dashboard
+export const getLatest = query({
+    args: { userId: v.optional(v.string()) }, // Clerk's tokenIdentifier
+    handler: async (ctx, args) => {
+        if (!args.userId) return null;
+
+        return await ctx.db
+            .query("roadmaps")
+            .withIndex("by_user", (q) => q.eq("userId", args.userId!))
+            .order("desc")
+            .first();
+    },
+});
