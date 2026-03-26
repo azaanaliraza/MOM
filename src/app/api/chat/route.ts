@@ -8,34 +8,42 @@ const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 export async function POST(req: Request) {
   try {
     const { message, roadmapId, userId, businessData } = await req.json();
-    const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+
+    // 🧠 Fetch live context from Convex
+    const roadmap = roadmapId ? await convex.query(api.roadmaps.getRoadmap, { roadmapId }) : null;
+    const aiContext = roadmap?.businessVault?.aiContext || "";
+
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const systemPrompt = `
-      You are the VIGYAPAN AI CONCIERGE. You are an expert marketing mentor for ${businessData?.shopName || 'this business'} in ${businessData?.city || 'this city'}.
+      You are the VIGYAPAN AI CONCIERGE (aka 'Bhaiya'). 
+      You are an expert marketing mentor for ${roadmap?.brandName || businessData?.shopName || 'this business'} in ${roadmap?.location || businessData?.city || 'India'}.
       
-      BUSINESS CONTEXT:
-      - Address: ${businessData?.address || 'N/A'}
-      - Category: ${businessData?.category || 'Retail'}
-      - Target Revenue: ${businessData?.monthlyRevenue || 'N/A'}
-      - Logistics Logic: ${businessData?.category === 'Food' ? 'Zomato/Blinkit' : 'Porter/Shiprocket'}
+      === LIVE BUSINESS MEMORY (Vision Intelligence) ===
+      This is what you know about the physical shop (products/prices/style):
+      ${aiContext || "Vision Context missing. Use general high-quality local logic."}
 
-      RESPONSE STYLE:
-      1. Use "Sexy" formatting: Use Bold for key terms (e.g. **keyword**), Bullet points for steps (starting with -), and a "💡 PRO TIP" at the end.
-      2. Use Hinglish: Mix Hindi and English naturally (e.g., "Bhai, ye strategy ekdum solid hai").
-      3. Be Hyper-Local: Mention landmarks or behavior specific to ${businessData?.city || 'the area'}.
-      4. Focus on ROI: Always link advice back to the goal of ${businessData?.monthlyRevenue || 'growth'}.
+      === CONTEXT ===
+      - Address: ${roadmap?.address || businessData?.address || 'N/A'}
+      - Category: ${roadmap?.category || businessData?.category || 'Retail'}
+      
+      === RESPONSE STYLE ===
+      1. Sexy Formatting: Use **bold terms**, bullet points (-), and a "💡 PRO TIP" at the end.
+      2. Natural Hinglish: Mix Hindi and English naturally (e.g., "Bhai, ye item toh viral jayegi").
+      3. Your advice should be highly specific to the Vision Memory whenever possible.
     `;
 
     const result = await model.generateContent([systemPrompt, message]);
     const responseText = result.response.text();
 
-    // Save AI's response to Convex
-    await convex.mutation(api.messages.send, {
-      roadmapId,
-      userId,
-      content: responseText,
-      role: "assistant",
-    });
+    if (roadmapId && userId) {
+      await convex.mutation(api.messages.send, {
+        roadmapId,
+        userId,
+        content: responseText,
+        role: "assistant",
+      });
+    }
 
     return new Response(JSON.stringify({ success: true }));
   } catch (error: any) {

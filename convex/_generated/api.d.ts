@@ -9,8 +9,10 @@
  */
 
 import type * as messages from "../messages.js";
+import type * as migrate from "../migrate.js";
 import type * as roadmaps from "../roadmaps.js";
 import type * as users from "../users.js";
+import type * as vision from "../vision.js";
 
 import type {
   ApiFromModules,
@@ -20,8 +22,10 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   messages: typeof messages;
+  migrate: typeof migrate;
   roadmaps: typeof roadmaps;
   users: typeof users;
+  vision: typeof vision;
 }>;
 
 /**

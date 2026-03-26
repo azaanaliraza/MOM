@@ -10,6 +10,7 @@ export const createRoadmap = mutation({
     category: v.optional(v.string()),
     monthlyRevenue: v.optional(v.string()),
     whatsapp: v.optional(v.string()),
+    businessLinks: v.optional(v.array(v.string())), // 🆕 Added to fix schema validation
     data: v.any(),
   },
   handler: async (ctx, args) => {
@@ -27,6 +28,7 @@ export const createRoadmap = mutation({
         name: identity?.name ?? "Vigyapan User",
         email: identity?.email ?? "pending-sync",
         isPremium: false, // Default for new users
+        integrations: {}, // Requirement for new schema
       });
     }
 
@@ -57,6 +59,7 @@ export const createRoadmap = mutation({
       category: args.category,
       monthlyRevenue: args.monthlyRevenue,
       whatsapp: args.whatsapp,
+      businessLinks: args.businessLinks, // 🆕 Pass businessLinks
       data: args.data,
       createdAt: Date.now(),
     });
@@ -75,6 +78,13 @@ export const listMyRoadmaps = query({
   },
 });
 
+export const getRoadmap = query({
+  args: { roadmapId: v.id("roadmaps") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.roadmapId);
+  },
+});
+
 // Fetch the latest roadmap for the dashboard
 export const getLatest = query({
     args: { userId: v.optional(v.string()) }, // Clerk's tokenIdentifier
@@ -87,4 +97,22 @@ export const getLatest = query({
             .order("desc")
             .first();
     },
+});
+
+export const updateManualContext = mutation({
+  args: { roadmapId: v.id("roadmaps"), text: v.string() },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.roadmapId, { 
+      manualContext: args.text 
+    });
+  },
+});
+
+export const removeVaultImage = mutation({
+  args: { roadmapId: v.id("roadmaps") },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.roadmapId, { 
+      businessVault: undefined
+    });
+  },
 });
