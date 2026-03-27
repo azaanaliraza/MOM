@@ -8,12 +8,14 @@ import { Check, Play, MapPin, ExternalLink, Lightbulb, Sparkles, TrendingUp, Zap
 import ChatAgent from '../../components/ChatAgent';
 import KaryaTab from '@/components/KaryaTab';
 import ConnectTab from '@/components/ConnectTab';
+import Link from 'next/link';
 
 export default function AdvancedDashboard() {
   const { user } = useUser();
 
   // 1. Fetch all roadmaps
   const allRoadmaps = useQuery(api.roadmaps.listMyRoadmaps, user ? { userId: user.id } : "skip");
+  const dbUser = useQuery(api.users.getUser, user ? { clerkId: user.id } : "skip");
 
   // 3. State for "Selected" roadmap
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -29,7 +31,7 @@ export default function AdvancedDashboard() {
   const roadmap = allRoadmaps?.find(r => r._id === selectedId);
   const [activeDay, setActiveDay] = useState<number>(1);
 
-  if (allRoadmaps === undefined) return <div className="h-screen flex items-center justify-center bg-surface transition-all duration-1000"><div className="node-pulse w-12 h-12 bg-indigo-600/20 rounded-full" /></div>;
+  if (allRoadmaps === undefined || dbUser === undefined) return <div className="h-screen flex items-center justify-center bg-surface transition-all duration-1000"><div className="node-pulse w-12 h-12 bg-indigo-600/20 rounded-full" /></div>;
 
   if (allRoadmaps.length === 0 || !roadmap) return (
     <div className="h-screen flex flex-col items-center justify-center bg-surface gap-6 animate-in fade-in zoom-in duration-700">
@@ -55,11 +57,12 @@ export default function AdvancedDashboard() {
     <div className="min-h-screen bg-[#FDFDFF] pb-32 selection:bg-indigo-100 selection:text-indigo-900">
       <nav className="bg-white/70 backdrop-blur-xl border-b border-stone-100 px-8 py-4 flex items-center justify-between sticky top-0 z-50">
         <div className="flex items-center gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
+          <Link href="/" className="flex items-center gap-4 group">
+            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 group-hover:bg-indigo-700 transition-colors">
               <Zap size={20} className="text-white" />
             </div>
-          </div>
+            <span className="text-xl font-black tracking-tight text-stone-900 group-hover:text-indigo-600 transition-colors">MOM</span>
+          </Link>
 
           <div className="h-8 w-[1px] bg-stone-100 hidden md:block" />
 
@@ -119,11 +122,12 @@ export default function AdvancedDashboard() {
           </div>
 
           <div className="flex items-center gap-4">
-            {!user?.publicMetadata?.isPremium && (
-              <button className="hidden sm:flex items-center gap-2 px-5 py-2 bg-yellow-400 hover:bg-yellow-500 text-[10px] font-black uppercase rounded-full shadow-lg shadow-yellow-100 transition-all active:scale-95">
-                <Zap size={10} fill="black" /> Upgrade
-              </button>
-            )}
+            <Link 
+              href="/premium"
+              className="hidden sm:flex items-center gap-2 px-5 py-2 bg-yellow-400 hover:bg-yellow-500 text-[10px] font-black uppercase rounded-full shadow-lg shadow-yellow-100 transition-all active:scale-95"
+            >
+              <Zap size={10} fill="black" /> {dbUser?.isPremium ? "VIP" : "Upgrade"}
+            </Link>
             <UserButton />
           </div>
         </div>

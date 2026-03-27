@@ -16,7 +16,7 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm;
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-sm transition-all;
   }
 
   .node-pulse {
@@ -27,6 +27,27 @@
     content: '';
     @apply absolute w-full h-full rounded-full border-2 border-indigo-accent/30;
     animation: pulse-ring 3s infinite;
+  }
+}
+
+@layer utilities {
+  .premium-glow {
+    animation: shimmer 2s infinite ease-in-out;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  100% {
+    opacity: 0.8;
   }
 }
 

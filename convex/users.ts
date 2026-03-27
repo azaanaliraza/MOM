@@ -60,6 +60,8 @@ export const generateUploadUrl = mutation(async (ctx) => {
 export const getUser = query({
   args: { clerkId: v.string() },
   handler: async (ctx, args) => {
+    if (!args.clerkId || args.clerkId === "loading") return null;
+    
     return await ctx.db
       .query("users")
       .withIndex("by_clerkId", (q) => q.eq("clerkId", args.clerkId))
@@ -93,3 +95,29 @@ export const updateAgentMemory = mutation({
     return { success: true };
   },
 });
+
+export const makeUserPremium = mutation({
+  args: { clerkId: v.string() },
+  handler: async (ctx, args) => {
+    // 1. Find the user
+    const user = await ctx.db
+      .query("users")
+      .withIndex("by_clerkId", (q) => q.eq("clerkId", args.clerkId))
+      .unique();
+
+    if (!user) {
+      console.error("User not found for clerkId:", args.clerkId);
+      throw new Error("User not found in database");
+    }
+
+    // 2. Flip the switch
+    await ctx.db.patch(user._id, { 
+      isPremium: true 
+    });
+
+    console.log(`User ${user.name} is now PREMIUM.`);
+    return { success: true };
+  },
+});
+
+

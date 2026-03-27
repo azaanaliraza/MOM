@@ -7,8 +7,9 @@ import {
   ArrowRight, Calendar, ToggleRight, MessageSquare,
   Mic, Sparkles, Loader2
 } from 'lucide-react';
+import Link from 'next/link';
 import { useUser, SignInButton } from "@clerk/nextjs";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import OnboardingForm from "../components/OnboardingForm";
 
@@ -24,6 +25,10 @@ const staggerContainer = {
 };
 
 function Navbar() {
+  const { isSignedIn, user } = useUser();
+  const roadmaps = useQuery(api.roadmaps.listMyRoadmaps, user ? { userId: user.id } : "skip");
+  const hasRoadmap = roadmaps && roadmaps.length > 0;
+
   return (
     <motion.nav
       initial={{ y: -100 }}
@@ -32,16 +37,35 @@ function Navbar() {
       className="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-2xl border-b border-stone-100/50 shadow-sm"
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div className="text-xl font-extrabold tracking-tighter bg-gradient-to-r from-primary to-indigo-accent bg-clip-text text-transparent">MOM</div>
+        <Link href="/" className="text-xl font-extrabold tracking-tighter bg-gradient-to-r from-primary to-indigo-accent bg-clip-text text-transparent">MOM</Link>
         <div className="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.15em] uppercase text-stone-500">
-          <a href="#" className="hover:text-primary transition-colors">Strategy</a>
-          <a href="#" className="hover:text-primary transition-colors">Execution</a>
-          <a href="#" className="hover:text-primary transition-colors">Agents</a>
-          <a href="#" className="hover:text-primary transition-colors">Pricing</a>
+          <a href="#strategy" className="hover:text-primary transition-colors">Strategy</a>
+          <a href="#execution" className="hover:text-primary transition-colors">Execution</a>
+          <a href="#agents" className="hover:text-primary transition-colors">Agents</a>
         </div>
-        <button className="bg-stone-900 hover:bg-primary transition-all text-white px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-md">
-          Get Started
-        </button>
+        {isSignedIn ? (
+          hasRoadmap ? (
+            <Link 
+              href="/dashboard"
+              className="bg-stone-900 hover:bg-primary transition-all text-white px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-md"
+            >
+              Dashboard
+            </Link>
+          ) : (
+            <button 
+              onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-stone-900 hover:bg-primary transition-all text-white px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-md"
+            >
+              Get Started
+            </button>
+          )
+        ) : (
+          <SignInButton mode="modal">
+            <button className="bg-stone-900 hover:bg-primary transition-all text-white px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-md">
+              Get Started
+            </button>
+          </SignInButton>
+        )}
       </div>
     </motion.nav>
   );
@@ -59,7 +83,6 @@ export default function MOMPage() {
       <WarRoom />
       <RadarSection />
       <ExecutionTimeline />
-      <Pricing />
       <Footer />
     </div>
   );
@@ -125,7 +148,7 @@ function Hero() {
   }, []);
 
   return (
-    <section className="pt-48 pb-24 px-6 text-center relative overflow-hidden">
+    <section id="hero" className="pt-48 pb-24 px-6 text-center relative overflow-hidden">
       <motion.div
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -189,7 +212,7 @@ function Hero() {
 
 function BentoGrid() {
   return (
-    <section className="max-w-7xl mx-auto px-6 py-24">
+    <section id="strategy" className="max-w-7xl mx-auto px-6 py-24">
       <motion.div
         variants={staggerContainer}
         initial="hidden"
@@ -371,7 +394,7 @@ function WarRoom() {
     { t: "[15:10]", s: "EXECUTING", m: "Drafting local campaign for Lucknow warehouse", c: "text-white" },
   ];
   return (
-    <section className="max-w-7xl mx-auto px-6 py-32">
+    <section id="agents" className="max-w-7xl mx-auto px-6 py-32">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -471,7 +494,7 @@ function ExecutionTimeline() {
     { t: "Instant Execution", d: "Ads go live, WhatsApp broadcasts deploy, leads are engaged. The engine never sleeps." },
   ];
   return (
-    <section className="max-w-4xl mx-auto px-6 py-32">
+    <section id="execution" className="max-w-4xl mx-auto px-6 py-32">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -517,51 +540,7 @@ function ExecutionTimeline() {
   );
 }
 
-function Pricing() {
-  return (
-    <section className="max-w-7xl mx-auto px-6 py-32 text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-5xl md:text-6xl font-black tracking-tighter mb-6 text-stone-900">Pricing for Execution</h2>
-        <p className="text-stone-500 text-lg mb-24 max-w-xl mx-auto">Scale simply. No hidden platform fees. Choose the power level your business demands.</p>
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
-          <PriceCard p="0" t="Trial Mode" l={["5 AI Reasoning cycles", "1 Channel execution", "Basic Insights"]} />
-          <PriceCard p="299" t="Standard" active l={["Unlimited Reasoning", "All Channels (WhatsApp+)", "Regional Optimization", "Priority Support"]} />
-          <PriceCard p="5000" t="High Vol" l={["Priority Compute", "Direct Account Agent", "Custom Logic API", "Dedicated Infrastructure"]} />
-        </div>
-      </motion.div>
-    </section>
-  );
-}
 
-function PriceCard({ p, t, l, active }: any) {
-  return (
-    <motion.div
-      whileHover={{ y: -10 }}
-      className={`p-12 rounded-[3.5rem] border transition-all duration-300 ${active ? 'bg-stone-900 text-white border-stone-800 shadow-2xl shadow-stone-900/40 md:scale-105 md:-translate-y-4' : 'glass-card text-stone-900 border-stone-100 hover:shadow-xl'} text-center flex flex-col items-center`}
-    >
-      <p className={`text-[11px] font-black uppercase tracking-[0.2em] mb-8 px-4 py-1.5 rounded-full inline-block ${active ? 'bg-white/10 text-white' : 'bg-primary/10 text-primary'}`}>{t}</p>
-      <div className="flex items-start justify-center mb-10 text-left">
-        <span className="text-2xl font-bold mt-2 mr-1 opacity-50">₹</span>
-        <span className="text-7xl font-black tracking-tighter">{p}</span>
-      </div>
-      <ul className="space-y-5 text-sm font-medium w-full mb-10">
-        {l.map((item: string, i: number) => (
-          <li key={i} className={`flex items-center justify-center gap-3 ${active ? 'opacity-90' : 'opacity-70'}`}>
-            <span className={`w-1.5 h-1.5 rounded-full ${active ? 'bg-primary' : 'bg-stone-300'}`} />
-            {item}
-          </li>
-        ))}
-      </ul>
-      <button className={`w-full py-4 rounded-2xl font-bold text-sm tracking-wide transition-all mt-auto ${active ? 'bg-primary hover:bg-white hover:text-stone-900 text-white' : 'bg-stone-100 hover:bg-stone-200 text-stone-900'}`}>
-        Choose Plan
-      </button>
-    </motion.div>
-  );
-}
 
 function Footer() {
   return (
