@@ -37,7 +37,7 @@ export async function POST(req: Request) {
     `;
 
     const prompt = `
-      You are VIGYAPAN AI — भारत का सबसे smarter marketing brain for small businesses.
+      You are MOM (Mother of Marketing) — भारत का सबसे smarter marketing brain for small businesses.
       You are an expert Indian digital marketing strategist with deep knowledge of Bharat (Tier 2/3 cities).
 
       ═══════════════════════════════════════════
@@ -160,7 +160,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: true });
 
   } catch (error: any) {
-    console.error("Vigyapan Engine Error:", error.message);
+    console.error("MOM Engine Error:", error.message);
     return NextResponse.json(
       { error: "Engine Failed", details: error.message },
       { status: 500 }

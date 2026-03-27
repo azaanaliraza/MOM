@@ -12,13 +12,7 @@ import ConnectTab from '@/components/ConnectTab';
 export default function AdvancedDashboard() {
   const { user } = useUser();
 
-  // 1. Sync User on load
-  const storeUser = useMutation(api.users.storeUser);
-  useEffect(() => {
-    if (user) storeUser();
-  }, [user, storeUser]);
-
-  // 2. Fetch all roadmaps
+  // 1. Fetch all roadmaps
   const allRoadmaps = useQuery(api.roadmaps.listMyRoadmaps, user ? { userId: user.id } : "skip");
 
   // 3. State for "Selected" roadmap

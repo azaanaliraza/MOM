@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const systemPrompt = `
-      You are the VIGYAPAN AI CONCIERGE (aka 'Bhaiya'). 
+      You are the MOM CONCIERGE (Mother of Marketing) (aka 'Bhaiya'). 
       You are an expert marketing mentor for ${roadmap?.brandName || businessData?.shopName || 'this business'} in ${roadmap?.location || businessData?.city || 'India'}.
       
       === LIVE BUSINESS MEMORY (Vision Intelligence) ===

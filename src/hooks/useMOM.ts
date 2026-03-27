@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function useVigyapan() {
+export function useMOM() {
     const [data, setData] = useState(null);
     const [isReasoning, setIsReasoning] = useState(false);
 

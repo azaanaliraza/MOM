@@ -64,7 +64,7 @@ export default function SexyChat({ roadmapId, userId, businessData }: any) {
                     <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-20" />
                 </div>
                 <div className="flex flex-col">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-stone-900">Vigyapan Concierge</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-stone-900">MOM Concierge</span>
                     <span className="text-[8px] font-bold text-stone-400">Online & Ready to Execute</span>
                 </div>
               </div>
@@ -131,7 +131,7 @@ export default function SexyChat({ roadmapId, userId, businessData }: any) {
                     ) : m.content}
                   </div>
                   <span className="text-[8px] font-bold text-stone-300 uppercase tracking-widest mt-2 px-2">
-                    {m.role === 'user' ? 'You' : 'Vigyapan AI'}
+                    {m.role === 'user' ? 'You' : 'MOM'}
                   </span>
                 </motion.div>
               ))}

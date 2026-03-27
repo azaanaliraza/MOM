@@ -32,7 +32,7 @@ function Navbar() {
       className="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-2xl border-b border-stone-100/50 shadow-sm"
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div className="text-xl font-extrabold tracking-tighter bg-gradient-to-r from-primary to-indigo-accent bg-clip-text text-transparent">Vigyapan AI</div>
+        <div className="text-xl font-extrabold tracking-tighter bg-gradient-to-r from-primary to-indigo-accent bg-clip-text text-transparent">MOM</div>
         <div className="hidden md:flex gap-8 text-[11px] font-bold tracking-[0.15em] uppercase text-stone-500">
           <a href="#" className="hover:text-primary transition-colors">Strategy</a>
           <a href="#" className="hover:text-primary transition-colors">Execution</a>
@@ -47,16 +47,7 @@ function Navbar() {
   );
 }
 
-export default function VigyapanPage() {
-  const { user, isSignedIn } = useUser();
-  const storeUser = useMutation(api.users.storeUser);
-  
-  useEffect(() => {
-    if (isSignedIn && user) {
-      storeUser();
-    }
-  }, [isSignedIn, user, storeUser]);
-
+export default function MOMPage() {
   return (
     <div className="min-h-screen bg-surface">
       <Navbar />
@@ -575,7 +566,7 @@ function PriceCard({ p, t, l, active }: any) {
 function Footer() {
   return (
     <footer className="max-w-7xl mx-auto px-6 py-24 border-t border-stone-100 flex flex-col md:flex-row justify-between items-center gap-8 mt-10">
-      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">© 2026 Vigyapan AI. Execution Precision.</p>
+      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">© 2026 Mother of Marketing. Execution Precision.</p>
       <div className="flex gap-8 text-[10px] font-bold uppercase tracking-widest text-stone-400">
         <a href="#" className="hover:text-primary transition-colors">Privacy</a>
         <a href="#" className="hover:text-primary transition-colors">Terms</a>

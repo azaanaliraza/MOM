@@ -2,54 +2,50 @@ import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 export const storeUser = mutation({
-  args: {},
-  handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) return null;
-
-    // Check if user exists by clerkId (new index)
-    let user = await ctx.db
+  args: { 
+    clerkId: v.string(), 
+    name: v.string(), 
+    email: v.string(),
+    pictureUrl: v.optional(v.string()),
+    phoneNumber: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    // 1. Check if user already exists
+    const user = await ctx.db
       .query("users")
-      .withIndex("by_clerkId", (q) => q.eq("clerkId", identity.subject))
+      .withIndex("by_clerkId", (q) => q.eq("clerkId", args.clerkId))
       .unique();
 
-    if (!user) {
-      // Fallback: check by tokenIdentifier (old index)
-      user = await ctx.db
-        .query("users")
-        .withIndex("by_token", (q) => q.eq("tokenIdentifier", identity.tokenIdentifier))
-        .unique();
-    }
-
     if (user !== null) {
-      // Patch missing fields for existing users (backfilling email/name)
-      if (!user.clerkId || !user.email || user.email === "no-email" || !user.integrations) {
-        await ctx.db.patch(user._id, {
-          clerkId: identity.subject,
-          email: identity.email ?? user.email,
-          name: identity.name ?? user.name,
-          isPremium: user.isPremium ?? false,
-          integrations: user.integrations ?? { 
-            googleBusiness: false, 
-            instagram: false, 
-            whatsapp: "" 
-          }
+      // 2. If user exists, update their details if they changed
+      if (
+        user.name !== args.name || 
+        user.email !== args.email || 
+        user.pictureUrl !== args.pictureUrl ||
+        user.phoneNumber !== args.phoneNumber
+      ) {
+        await ctx.db.patch(user._id, { 
+          name: args.name, 
+          email: args.email,
+          pictureUrl: args.pictureUrl ?? user.pictureUrl,
+          phoneNumber: args.phoneNumber ?? user.phoneNumber,
         });
       }
       return user._id;
     }
 
-    // If new user, create them as "Free"
+    // 3. If new user, create them with real data
     return await ctx.db.insert("users", {
-      name: identity.name ?? "Anonymous",
-      email: identity.email ?? "no-email",
-      clerkId: identity.subject,
-      tokenIdentifier: identity.tokenIdentifier,
+      clerkId: args.clerkId,
+      name: args.name,
+      email: args.email,
+      pictureUrl: args.pictureUrl,
+      phoneNumber: args.phoneNumber,
       isPremium: false,
-      integrations: { 
-        googleBusiness: false, 
-        instagram: false, 
-        whatsapp: "" 
+      integrations: {
+        googleBusiness: false,
+        instagram: false,
+        whatsapp: ""
       },
     });
   },

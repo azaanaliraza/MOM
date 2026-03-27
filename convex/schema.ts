@@ -7,6 +7,8 @@ export default defineSchema({
     email: v.string(),
     clerkId: v.string(),
     tokenIdentifier: v.optional(v.string()), 
+    pictureUrl: v.optional(v.string()),
+    phoneNumber: v.optional(v.string()),
     isPremium: v.boolean(), 
     // ⚠️ Deprecated: Use businessVault on roadmaps instead. Keeping temporarily for migration.
     businessVault: v.optional(v.object({

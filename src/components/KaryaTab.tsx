@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import { 
   Search, Terminal, Copy, Download, Sparkles, MapPin, 
   ExternalLink, Zap, AlertCircle, Video, Image as ImageIcon, 
-  Camera, Globe, Link2, Plus, Save, Trash2, Info, X
+  Camera, Globe, Link2, Plus, Save, Trash2, Info, X, Lock
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useQuery, useMutation } from "convex/react";
@@ -25,6 +25,7 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
   
   const allRoadmaps = useQuery(api.roadmaps.listMyRoadmaps, user ? { userId: user.id } : "skip");
   const currentRoadmap = allRoadmaps?.find(r => r._id === roadmapId);
+  const dbUser = useQuery(api.users.getUser, user ? { clerkId: user.id } : "skip");
 
   const [loading, setLoading] = useState(false);
   const [generatedResult, setGeneratedResult] = useState<any>(null);
@@ -115,6 +116,25 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
         setReelLoading(false);
     }
   };
+
+  if (!dbUser?.isPremium) {
+    return (
+      <div className="flex flex-col items-center justify-center p-12 text-center bg-stone-50 rounded-[3rem] border border-stone-100">
+        <div className="w-16 h-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-6">
+          <Lock size={24} />
+        </div>
+        <h2 className="text-xl font-black uppercase tracking-tight text-stone-900 mb-2">
+          Unlock Agent Karya
+        </h2>
+        <p className="text-sm text-stone-500 max-w-xs mb-8">
+          Get the full Shadow Audit, automated Hinglish reels, and 30-day roadmap execution.
+        </p>
+        <button className="px-10 py-4 bg-indigo-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100">
+          Upgrade to Premium
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-16 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20 overflow-visible">

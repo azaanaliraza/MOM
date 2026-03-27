@@ -3,7 +3,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
-export async function processBusinessImage(base64Image: string) {
+export async function processBusinessImage(base64Image: string, isPremium: boolean) {
+  if (!isPremium) throw new Error("Unauthorized: Agent Vision is a Premium feature.");
   try {
     const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
 

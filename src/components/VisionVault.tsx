@@ -24,6 +24,7 @@ export default function VisionVault({ roadmapId }: VisionVaultProps) {
   const generateUploadUrl = useMutation(api.users.generateUploadUrl);
   const updateManualContext = useMutation(api.roadmaps.updateManualContext);
   const removeVaultImage = useMutation(api.roadmaps.removeVaultImage);
+  const dbUser = useQuery(api.users.getUser, user ? { clerkId: user.id } : "skip");
 
   // Sync manual text with roadmap data
   useEffect(() => {
@@ -68,7 +69,7 @@ export default function VisionVault({ roadmapId }: VisionVaultProps) {
 
           try {
             setUploadStatus("Agent is Extracting Intelligence...");
-            const intelligence = await processBusinessImage(compressedBase64);
+            const intelligence = await processBusinessImage(compressedBase64, !!dbUser?.isPremium);
 
             if (intelligence) {
               setUploadStatus("Finalizing Memory...");

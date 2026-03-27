@@ -25,8 +25,10 @@ export const createRoadmap = mutation({
       const identity = await ctx.auth.getUserIdentity();
       await ctx.db.insert("users", {
         clerkId: args.userId,
-        name: identity?.name ?? "Vigyapan User",
+        name: identity?.name ?? "MOM User",
         email: identity?.email ?? "pending-sync",
+        pictureUrl: identity?.pictureUrl,
+        phoneNumber: identity?.phoneNumber,
         isPremium: false, // Default for new users
         integrations: {}, // Requirement for new schema
       });

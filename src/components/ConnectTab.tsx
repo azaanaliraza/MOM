@@ -29,7 +29,7 @@ export default function ConnectTab() {
       </div>
 
       <div className="p-8 bg-indigo-50 rounded-3xl border border-indigo-100 text-[10px] font-bold text-indigo-900 uppercase tracking-[0.2em]">
-        Your keys are stored in the Vigyapan Vault with AES-256 encryption. Agent only posts with your approval.
+        Your keys are stored in the MOM Vault with AES-256 encryption. Agent only posts with your approval.
       </div>
     </div>
   );

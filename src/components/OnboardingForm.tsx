@@ -155,7 +155,7 @@ export default function OnboardingForm({ initialPrompt, userId, onClose }: { ini
                <Loader2 className="animate-spin" size={20} />
                <span>GENERATING ENGINE...</span>
              </>
-          ) : step === 3 ? "LAUNCH VIGYAPAN" : "CONTINUE"}
+          ) : step === 3 ? "LAUNCH MOM" : "CONTINUE"}
           {!loading && <ArrowRight size={16} />}
         </button>
       </div>
