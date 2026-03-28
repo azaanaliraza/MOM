@@ -118,3 +118,23 @@ export const removeVaultImage = mutation({
     });
   },
 });
+
+export const toggleTaskCompletion = mutation({
+  args: { roadmapId: v.id("roadmaps"), dayNumber: v.number() },
+  handler: async (ctx, args) => {
+    const roadmap = await ctx.db.get(args.roadmapId);
+    if (!roadmap) throw new Error("Roadmap not found");
+
+    const completedDays = roadmap.completedDays || [];
+    const isDone = completedDays.includes(args.dayNumber);
+
+    const nextCompleted = isDone 
+      ? completedDays.filter((d: number) => d !== args.dayNumber)
+      : [...completedDays, args.dayNumber];
+
+    await ctx.db.patch(args.roadmapId, { 
+      completedDays: nextCompleted,
+      lastActivityAt: Date.now() 
+    });
+  },
+});

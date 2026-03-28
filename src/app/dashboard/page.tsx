@@ -4,7 +4,7 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, Play, MapPin, ExternalLink, Lightbulb, Sparkles, TrendingUp, Zap, ChevronDown, Plus } from 'lucide-react';
+import { Check, Play, MapPin, ExternalLink, Lightbulb, Sparkles, TrendingUp, Zap, ChevronDown, Plus, CheckCircle, Circle } from 'lucide-react';
 import ChatAgent from '../../components/ChatAgent';
 import KaryaTab from '@/components/KaryaTab';
 import ConnectTab from '@/components/ConnectTab';
@@ -30,6 +30,7 @@ export default function AdvancedDashboard() {
 
   const roadmap = allRoadmaps?.find(r => r._id === selectedId);
   const [activeDay, setActiveDay] = useState<number>(1);
+  const toggleTask = useMutation(api.roadmaps.toggleTaskCompletion);
 
   if (allRoadmaps === undefined || dbUser === undefined) return <div className="h-screen flex items-center justify-center bg-surface transition-all duration-1000"><div className="node-pulse w-12 h-12 bg-indigo-600/20 rounded-full" /></div>;
 
@@ -52,6 +53,8 @@ export default function AdvancedDashboard() {
   const weeklyThemes = d.weeklyThemes || d.weekly_intelligence || [];
 
   const selectedDayData = thirtyDayPlan.find((r: any) => r.day === activeDay) || thirtyDayPlan[0];
+  const completedDays = roadmap.completedDays || [];
+  const completedCount = completedDays.length;
 
   return (
     <div className="min-h-screen bg-[#FDFDFF] pb-32 selection:bg-indigo-100 selection:text-indigo-900">
@@ -168,10 +171,10 @@ export default function AdvancedDashboard() {
               <div className="mb-16">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-xs font-bold uppercase opacity-30 tracking-widest">30-Day Campaign Progress</span>
-                  <span className="text-sm font-black text-indigo-600">Day {activeDay} of 30</span>
+                  <span className="text-sm font-black text-indigo-600">{completedCount}/30 Done · Day {activeDay}</span>
                 </div>
                 <div className="h-3 bg-stone-100 rounded-full overflow-hidden shadow-inner p-0.5">
-                  <motion.div initial={{ width: 0 }} animate={{ width: `${(activeDay / 30) * 100}%` }} className="h-full bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-full shadow-lg shadow-indigo-200" />
+                  <motion.div initial={{ width: 0 }} animate={{ width: `${(completedCount / 30) * 100}%` }} className="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full shadow-lg shadow-green-200" />
                 </div>
               </div>
 
@@ -182,11 +185,27 @@ export default function AdvancedDashboard() {
                     <button
                       key={step.day}
                       onClick={() => setActiveDay(step.day)}
-                      className={`min-w-[150px] p-7 rounded-[2.5rem] border text-left transition-all duration-300 relative group ${activeDay === step.day ? 'bg-indigo-600 border-indigo-500 text-white shadow-2xl scale-105 -translate-y-1' : 'bg-white border-stone-100 hover:border-indigo-200 shadow-sm'}`}
+                      className={`min-w-[150px] p-7 rounded-[2.5rem] border text-left transition-all duration-300 relative group ${
+                        completedDays.includes(step.day)
+                          ? activeDay === step.day
+                            ? 'bg-green-600 border-green-500 text-white shadow-2xl scale-105 -translate-y-1'
+                            : 'bg-green-50 border-green-200 shadow-sm'
+                          : activeDay === step.day
+                            ? 'bg-indigo-600 border-indigo-500 text-white shadow-2xl scale-105 -translate-y-1'
+                            : 'bg-white border-stone-100 hover:border-indigo-200 shadow-sm'
+                      }`}
                     >
                       <p className={`text-[10px] font-black uppercase mb-4 ${activeDay === step.day ? 'opacity-60' : 'opacity-20'}`}>Day {step.day}</p>
-                      <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-5 transition-colors ${activeDay === step.day ? 'bg-white/20 text-white' : 'bg-stone-50 text-indigo-600 group-hover:bg-indigo-50'}`}>
-                        {step.status === 'done' ? <Check size={16} /> : <Play size={12} fill="currentColor" />}
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center mb-5 transition-colors ${
+                        completedDays.includes(step.day)
+                          ? activeDay === step.day
+                            ? 'bg-white/20 text-white'
+                            : 'bg-green-100 text-green-600'
+                          : activeDay === step.day
+                            ? 'bg-white/20 text-white'
+                            : 'bg-stone-50 text-indigo-600 group-hover:bg-indigo-50'
+                      }`}>
+                        {completedDays.includes(step.day) ? <Check size={16} /> : <Play size={12} fill="currentColor" />}
                       </div>
                       <h4 className="text-[12px] font-bold leading-tight">{step.label}</h4>
                     </button>
@@ -235,6 +254,23 @@ export default function AdvancedDashboard() {
                               </motion.div>
                             )) || <p className="text-sm text-stone-400">Tactical guide coming soon.</p>}
                           </div>
+                        </div>
+
+                        {/* MARK AS DONE BUTTON */}
+                        <div className="pt-4">
+                          <button 
+                            onClick={() => toggleTask({ roadmapId: roadmap._id, dayNumber: activeDay })}
+                            className={`w-full py-8 rounded-[2rem] flex items-center justify-center gap-4 transition-all active:scale-95 shadow-xl cursor-pointer ${
+                              completedDays.includes(activeDay) 
+                                ? 'bg-green-500 text-white shadow-green-200 hover:bg-green-600' 
+                                : 'bg-stone-900 text-white hover:bg-indigo-700 shadow-stone-200'
+                            }`}
+                          >
+                            {completedDays.includes(activeDay) ? <CheckCircle size={28} /> : <Circle size={28} />}
+                            <span className="text-sm font-black uppercase tracking-widest">
+                              {completedDays.includes(activeDay) ? "Task Done! Shabaash! ✅" : "Mark Task as Done"}
+                            </span>
+                          </button>
                         </div>
 
                         {selectedDayData?.recommended_tools && selectedDayData.recommended_tools.length > 0 && (
