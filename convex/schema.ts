@@ -43,6 +43,8 @@ export default defineSchema({
     manualContext: v.optional(v.string()),
     data: v.any(), 
     createdAt: v.number(),
+    completedDays: v.optional(v.array(v.number())),
+    lastActivityAt: v.optional(v.number()),
   }).index("by_user", ["userId"]),
   
   messages: defineTable({
