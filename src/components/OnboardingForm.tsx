@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, X, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useUser } from "@clerk/nextjs";
@@ -10,6 +10,28 @@ export default function OnboardingForm({ initialPrompt, userId, onClose }: { ini
   const { isLoaded, isSignedIn, user } = useUser();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  const loadingMessages = [
+    "GENERATING ENGINE...",
+    "HOLD ON WHILE AI IS WORKING...",
+    "ANALYZING MARKET DATA...",
+    "CRAFTING YOUR ROADMAP...",
+    "OPTIMIZING BUSINESS STRATEGY..."
+  ];
+  const [loadingMsgIdx, setLoadingMsgIdx] = useState(0);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (loading) {
+      interval = setInterval(() => {
+        setLoadingMsgIdx((prev) => (prev + 1) % loadingMessages.length);
+      }, 2500);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [loading]);
+
   const [formData, setFormData] = useState({
     shopName: "",
     city: "",
@@ -153,7 +175,17 @@ export default function OnboardingForm({ initialPrompt, userId, onClose }: { ini
           {loading ? (
              <>
                <Loader2 className="animate-spin" size={20} />
-               <span>GENERATING ENGINE...</span>
+               <AnimatePresence mode="wait">
+                 <motion.span 
+                   key={loadingMsgIdx}
+                   initial={{ opacity: 0, y: 10 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   exit={{ opacity: 0, y: -10 }}
+                   transition={{ duration: 0.2 }}
+                 >
+                   {loadingMessages[loadingMsgIdx]}
+                 </motion.span>
+               </AnimatePresence>
              </>
           ) : step === 3 ? "LAUNCH MOM" : "CONTINUE"}
           {!loading && <ArrowRight size={16} />}
