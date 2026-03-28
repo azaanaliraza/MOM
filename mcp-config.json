@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "mom-marketing": {
+      "command": "bun",
+      "args": ["run", "mcp-server/index.ts"],
+      "cwd": "c:\\Users\\User\\OneDrive\\Desktop\\MOM",
+      "env": {}
+    }
+  }
+}
