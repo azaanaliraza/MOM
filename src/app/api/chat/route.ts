@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     const roadmap = roadmapId ? await convex.query(api.roadmaps.getRoadmap, { roadmapId }) : null;
     const aiContext = roadmap?.businessVault?.aiContext || "";
 
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const systemPrompt = `
       You are the MOM CONCIERGE (Mother of Marketing) (aka 'Bhaiya'). 

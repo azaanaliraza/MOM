@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 import VisionVault from "./VisionVault";
 import { Id } from "../../convex/_generated/dataModel";
 
@@ -129,9 +130,11 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
         <p className="text-sm text-stone-500 max-w-xs mb-8">
           Get the full Shadow Audit, automated Hinglish reels, and 30-day roadmap execution.
         </p>
-        <button className="px-10 py-4 bg-indigo-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100">
-          Upgrade to Premium
-        </button>
+        <Link href="/premium">
+          <button className="px-10 py-4 bg-indigo-600 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100">
+            Upgrade to Premium
+          </button>
+        </Link>
       </div>
     );
   }
