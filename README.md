@@ -191,6 +191,7 @@ See [`mcp-config.json`](mcp-config.json) for Claude Desktop / Cursor setup.
 The MOM Chrome Extension gives users a quick glance at their marketing progress right from the browser toolbar.
 
 **Features:**
+- 🔐 Automatic login — just sign in once on the MOM website, the extension detects your session
 - 📊 Current day progress with visual ring
 - 📋 Today's task with execution steps
 - ⏭️ Next 3 upcoming tasks preview
@@ -198,6 +199,8 @@ The MOM Chrome Extension gives users a quick glance at their marketing progress 
 - 🔗 One-click link to full dashboard
 
 **Install:** Load `chrome-extension/` as an unpacked extension → `chrome://extensions` → Developer mode → Load unpacked.
+
+**Usage:** Click the extension icon → if not logged in, click "Sign in with Google" → sign in on the MOM website → reopen the extension to see your dashboard.
 
 ---
 

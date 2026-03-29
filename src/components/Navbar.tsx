@@ -34,7 +34,10 @@ export default function Navbar() {
       </div>
 
       {/* RIGHT: USER SECTION */}
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-6" 
+           data-clerk-user-id={user?.id}
+           data-clerk-user-name={dbUser?.name ?? user?.fullName}
+           data-clerk-user-image={user?.imageUrl}>
         {isSignedIn && (
           <div className="flex items-center gap-4">
             <div className="flex flex-col items-end">
