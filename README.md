@@ -1,36 +1,244 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="https://img.shields.io/badge/MOM-Mother%20of%20Marketing-6366f1?style=for-the-badge&labelColor=1e1b4b" alt="MOM Badge" />
+  <img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/Convex-Backend-ef4444?style=for-the-badge" alt="Convex" />
+  <img src="https://img.shields.io/badge/Gemini-AI-4285f4?style=for-the-badge&logo=google" alt="Gemini" />
+</p>
 
-## Getting Started
+<h1 align="center">⚡ MOM — Mother of Marketing</h1>
+<p align="center"><strong>India's first AI marketing engine built for Bharat's small businesses.</strong></p>
+<p align="center">
+  Generate hyper-local 30-day marketing roadmaps, auto-execute strategies with Agent Karya,<br/>
+  and get Hinglish marketing advice — all powered by AI.
+</p>
 
-First, run the development server:
+---
+
+## 🎯 What is MOM?
+
+MOM is an AI-powered marketing platform designed for **Indian small business owners** (Tier 2/3 cities). Instead of hiring a marketing agency, a chai shop owner in Lucknow or a tyre dealer in Indore can:
+
+1. **Describe their business** → MOM generates a 30-day localized marketing roadmap
+2. **Execute daily tasks** → Agent Karya creates posters, reel scripts, and captions automatically
+3. **Chat with MOM Bhaiya** → Get Hinglish marketing advice specific to their shop
+4. **Track progress** → Mark tasks as done, get nudge emails if inactive
+
+---
+
+## ✨ Features
+
+| Feature | Description | AI Model |
+|---------|-------------|----------|
+| 🗺️ **30-Day Roadmap** | AI-generated daily marketing plan with local insights | Gemini 3 Flash |
+| 🤖 **Agent Karya** | Auto-generates reel scripts, poster captions, and execution guides | Llama 3.3 70B (HuggingFace) |
+| 🎨 **Poster Generator** | Marketing poster creation from text prompts | FLUX.1 Schnell (HuggingFace) |
+| 📱 **Reel Generator** | 9:16 vertical reel-style images for Instagram/Shorts | FLUX.1 Schnell (HuggingFace) |
+| 💬 **MOM Concierge Chat** | Hinglish marketing mentor with business context memory | Gemini 2.5 Flash |
+| 👁️ **Vision Vault** | Upload shop photos → AI extracts product/price intelligence | Gemini 3 Flash |
+| ✅ **Mark as Done** | Interactive task completion tracking with progress bar | — |
+| 📧 **Nudge System** | Auto email reminders if user is inactive for 3+ days | Resend + Convex Crons |
+| 🔗 **MCP Server** | 12-tool MCP server for Claude Desktop / Cursor integration | — |
+| 🧩 **Chrome Extension** | Quick dashboard in your browser showing today's task | — |
+
+---
+
+## 🏗️ Tech Stack
+
+```
+Frontend:    Next.js 16 · React 19 · Framer Motion · Tailwind CSS 4
+Backend:     Convex (real-time database, cron jobs, file storage)
+Auth:        Clerk (Google + Email login)
+AI Models:   Google Gemini 3 Flash · Gemini 2.5 Flash · Meta Llama 3.3 70B · FLUX.1 Schnell
+Email:       Resend (automated nudge emails)
+Payments:    Razorpay (INR payments for Premium)
+Protocol:    Model Context Protocol (MCP) for AI assistant integration
+Extension:   Chrome Manifest V3 browser extension
+```
+
+---
+
+## 📁 Project Structure
+
+```
+MOM/
+├── src/
+│   ├── app/
+│   │   ├── page.tsx              # Landing page + onboarding form
+│   │   ├── dashboard/page.tsx    # Main marketing dashboard
+│   │   ├── premium/page.tsx      # Premium upgrade page
+│   │   ├── api/
+│   │   │   ├── generate/         # POST — Roadmap generation (Gemini)
+│   │   │   ├── chat/             # POST — MOM concierge chat (Gemini)
+│   │   │   ├── karya/generate/   # POST — Agent Karya strategy (Llama)
+│   │   │   ├── karya/generate/image/  # POST — Poster (FLUX)
+│   │   │   ├── karya/generate/video/  # POST — Reel (FLUX)
+│   │   │   └── payments/razorpay/     # POST — Payment webhook
+│   │   └── actions/vision.ts     # Server action — Image intelligence
+│   └── components/
+│       ├── ChatAgent.tsx          # Floating MOM chat widget
+│       ├── KaryaTab.tsx           # Agent Karya execution panel
+│       ├── ConnectTab.tsx         # Integrations tab
+│       └── VisionVault.tsx        # Business photo upload + AI analysis
+├── convex/
+│   ├── schema.ts                  # Database schema (users, roadmaps, messages)
+│   ├── roadmaps.ts                # CRUD + task completion mutations
+│   ├── users.ts                   # User management + premium upgrades
+│   ├── messages.ts                # Chat message storage
+│   ├── vision.ts                  # Image context extraction action
+│   ├── email.ts                   # Resend nudge email action
+│   └── crons.ts                   # Daily inactivity check cron job
+├── mcp-server/
+│   └── index.ts                   # MCP server (12 tools via stdio)
+├── chrome-extension/
+│   ├── manifest.json              # Chrome Manifest V3
+│   ├── popup.html                 # Extension popup UI
+│   ├── popup.css                  # Extension styles
+│   └── popup.js                   # Extension logic (Convex API calls)
+└── mcp-config.json                # Claude Desktop / Cursor MCP config
+```
+
+---
+
+## 🚀 Quick Start
+
+### 1. Clone & Install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+git clone https://github.com/ritikteotia/Vigyapan-ai.git
+cd Vigyapan-ai
+bun install
+```
+
+### 2. Environment Variables
+
+Create `.env.local` in the project root:
+
+```env
+# Convex
+CONVEX_DEPLOYMENT=dev:your-deployment-name
+NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
+
+# Clerk Auth
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
+
+# Google AI
+GEMINI_API_KEY=AIza...
+
+# HuggingFace (for Agent Karya + FLUX)
+HF_TOKEN=hf_...
+
+# Razorpay (payments)
+RAZORPAY_KEY_ID=rzp_test_...
+RAZORPAY_KEY_SECRET=...
+NEXT_PUBLIC_RAZORPAY_KEY_ID=rzp_test_...
+
+# Resend (email nudges)
+RESEND_API_KEY=re_...
+NEXT_PUBLIC_SITE_URL=https://mom-pearl-delta.vercel.app
+```
+
+### 3. Start Convex + Dev Server
+
+```bash
+# Terminal 1: Convex backend
+npx convex dev
+
+# Terminal 2: Next.js frontend
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [https://mom-pearl-delta.vercel.app](https://mom-pearl-delta.vercel.app) and sign in to get started.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. (Optional) Start MCP Server
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Terminal 3: MCP server for Claude Desktop / Cursor
+bun run mcp
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🧠 API Endpoints
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Method | Route | Description |
+|--------|-------|-------------|
+| POST | `/api/generate` | Generate 30-day roadmap (Gemini 3 Flash) |
+| POST | `/api/chat` | Chat with MOM Bhaiya (Gemini 2.5 Flash) |
+| POST | `/api/karya/generate` | Agent Karya daily strategy (Llama 3.3 70B) |
+| POST | `/api/karya/generate/image` | Marketing poster (FLUX.1 Schnell 1024×1024) |
+| POST | `/api/karya/generate/video` | Vertical reel image (FLUX.1 Schnell 720×1280) |
+| POST | `/api/payments/razorpay` | Razorpay payment verification + premium upgrade |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🔌 MCP Server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+MOM includes a **12-tool MCP server** for integration with Claude Desktop, Cursor, or any MCP client.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+bun run mcp
+```
+
+**Tools:** `generate_roadmap`, `list_roadmaps`, `get_roadmap`, `get_latest_roadmap`, `toggle_task_completion`, `update_manual_context`, `generate_karya_strategy`, `generate_poster`, `generate_reel`, `chat_with_mom`, `get_user_profile`, `get_chat_history`
+
+See [`mcp-config.json`](mcp-config.json) for Claude Desktop / Cursor setup.
+
+---
+
+## 🧩 Chrome Extension
+
+The MOM Chrome Extension gives users a quick glance at their marketing progress right from the browser toolbar.
+
+**Features:**
+- 📊 Current day progress with visual ring
+- 📋 Today's task with execution steps
+- ⏭️ Next 3 upcoming tasks preview
+- ✅ Quick "Mark as Done" button
+- 🔗 One-click link to full dashboard
+
+**Install:** Load `chrome-extension/` as an unpacked extension → `chrome://extensions` → Developer mode → Load unpacked.
+
+---
+
+## 💳 Premium
+
+| Feature | Free | Premium (₹499) |
+|---------|------|-----------------|
+| Roadmaps | 3 max | 100 max |
+| Agent Karya | ❌ | ✅ |
+| Vision Vault | ❌ | ✅ |
+| Poster/Reel Gen | ❌ | ✅ |
+| MOM Chat | ✅ | ✅ |
+| Nudge Emails | ✅ | ✅ |
+
+---
+
+## 📬 Nudge System
+
+A **daily Convex cron job** checks all roadmaps for users who haven't been active in 3+ days. It automatically sends a friendly Hinglish email via Resend:
+
+> *"Oye! Aapne kuch dino se [Brand] ka marketing task nahi kiya. Dukan badhani hai toh consistency chahiye!"*
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repo
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is proprietary. All rights reserved.
+
+---
+
+<p align="center">
+  <strong>Built with ❤️ for Bharat's small businesses</strong><br>
+  <sub>MOM — Because every dukaan deserves a marketing engine.</sub>
+</p>

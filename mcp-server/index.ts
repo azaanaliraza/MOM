@@ -21,7 +21,7 @@ import { ConvexHttpClient } from "convex/browser";
 import { api } from "../convex/_generated/api.js";
 
 // ── Config ────────────────────────────────────────────────────────────
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://mom-pearl-delta.vercel.app";
 const CONVEX_URL = process.env.NEXT_PUBLIC_CONVEX_URL;
 
 if (!CONVEX_URL) {

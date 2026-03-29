@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=420, initial-scale=1.0" />
+  <title>MOM Dashboard</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- ═══ SETUP SCREEN ═══ -->
+  <div id="setup-screen" class="screen">
+    <div class="setup-header">
+      <div class="logo-icon">⚡</div>
+      <h1>MOM</h1>
+      <p class="subtitle">Mother of Marketing</p>
+    </div>
+    <div class="setup-form">
+      <label for="convex-url">Convex URL</label>
+      <input id="convex-url" type="url" placeholder="https://your-deployment.convex.cloud" spellcheck="false" />
+      <label for="clerk-id">Your Clerk User ID</label>
+      <input id="clerk-id" type="text" placeholder="user_2x..." spellcheck="false" />
+      <p class="hint">Find your Clerk ID in the MOM dashboard → Profile</p>
+      <button id="save-config" class="btn-primary">Connect →</button>
+    </div>
+  </div>
+
+  <!-- ═══ MAIN DASHBOARD ═══ -->
+  <div id="main-screen" class="screen hidden">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <div class="logo-small">⚡</div>
+        <div>
+          <h2 id="brand-name">Loading...</h2>
+          <p class="location" id="brand-location"></p>
+        </div>
+      </div>
+      <button id="settings-btn" class="icon-btn" title="Settings">⚙️</button>
+    </div>
+
+    <!-- Progress Ring -->
+    <div class="progress-section">
+      <div class="progress-ring-container">
+        <svg class="progress-ring" viewBox="0 0 120 120">
+          <circle class="progress-bg" cx="60" cy="60" r="52" />
+          <circle class="progress-fill" id="progress-circle" cx="60" cy="60" r="52" />
+        </svg>
+        <div class="progress-text">
+          <span class="progress-count" id="progress-count">0</span>
+          <span class="progress-label">/30</span>
+        </div>
+      </div>
+      <div class="progress-info">
+        <p class="progress-title">Campaign Progress</p>
+        <p class="progress-detail" id="progress-pct">0% complete</p>
+      </div>
+    </div>
+
+    <!-- Today's Task -->
+    <div class="today-card" id="today-card">
+      <div class="today-badge">
+        <span class="badge-dot"></span>
+        TODAY — DAY <span id="today-day">1</span>
+      </div>
+      <h3 id="today-label">Loading task...</h3>
+      <div class="today-steps" id="today-steps"></div>
+      <button id="mark-done-btn" class="btn-done">
+        <span id="done-icon">○</span>
+        <span id="done-text">Mark as Done</span>
+      </button>
+    </div>
+
+    <!-- Upcoming Tasks -->
+    <div class="upcoming-section">
+      <h4 class="section-title">UPCOMING</h4>
+      <div class="upcoming-list" id="upcoming-list"></div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <a id="open-dashboard" class="footer-link" target="_blank">Open Full Dashboard →</a>
+    </div>
+  </div>
+
+  <!-- ═══ LOADING ═══ -->
+  <div id="loading-screen" class="screen hidden">
+    <div class="loader-container">
+      <div class="loader-pulse"></div>
+      <p>Loading your strategy...</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

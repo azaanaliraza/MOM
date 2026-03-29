@@ -8,7 +8,7 @@ export const sendNudgeEmail = internalAction({
   args: { email: v.string(), brandName: v.string() },
   handler: async (_ctx, args) => {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mom-pearl-delta.vercel.app";
 
     await resend.emails.send({
       from: "MOM Bhaiya <onboarding@resend.dev>",
