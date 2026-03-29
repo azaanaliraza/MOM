@@ -1,9 +1,31 @@
 {
   "manifest_version": 3,
   "name": "MOM — Marketing Dashboard",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "Quick-view your 30-day marketing roadmap progress, today's task, and upcoming goals — powered by MOM (Mother of Marketing).",
-  "permissions": ["storage"],
+  "permissions": [
+    "storage",
+    "tabs",
+    "cookies"
+  ],
+  "host_permissions": [
+    "https://mom-pearl-delta.vercel.app/*",
+    "http://localhost:3000/*",
+    "https://necessary-fish-39.eu-west-1.convex.cloud/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mom-pearl-delta.vercel.app/*",
+        "http://localhost:3000/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
