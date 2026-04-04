@@ -8,10 +8,12 @@
  * @module
  */
 
+import type * as agent from "../agent.js";
 import type * as crons from "../crons.js";
 import type * as email from "../email.js";
 import type * as messages from "../messages.js";
 import type * as migrate from "../migrate.js";
+import type * as morningTasks from "../morningTasks.js";
 import type * as roadmaps from "../roadmaps.js";
 import type * as users from "../users.js";
 import type * as vision from "../vision.js";
@@ -24,10 +26,12 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  agent: typeof agent;
   crons: typeof crons;
   email: typeof email;
   messages: typeof messages;
   migrate: typeof migrate;
+  morningTasks: typeof morningTasks;
   roadmaps: typeof roadmaps;
   users: typeof users;
   vision: typeof vision;

@@ -24,9 +24,9 @@ export async function POST(req: Request) {
     }
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-3-flash-preview", // Extremely fast and stable for large JSON
+      model: "gemini-2.5-flash", // More stable for JSON production
       generationConfig: {
-        maxOutputTokens: 8192,
+        maxOutputTokens: 16384, // Increased to prevent truncation
         responseMimeType: "application/json",
       }
     });
@@ -42,6 +42,9 @@ export async function POST(req: Request) {
 
     const prompt = `
       You are MOM (Mother of Marketing) — भारत का सबसे smarter marketing brain for small businesses.
+      Return ONLY a single valid JSON object. No other text before or after.
+      CRITICAL: Be extremely concise to avoid character limits. Keep execution_steps short and actionable.
+      
       You are an expert Indian digital marketing strategist with deep knowledge of Bharat (Tier 2/3 cities).
 
       ═══════════════════════════════════════════
@@ -90,7 +93,7 @@ export async function POST(req: Request) {
       ═══════════════════════════════════════════
       📊 OUTPUT INSTRUCTIONS
       ═══════════════════════════════════════════
-      - Return ONLY a valid JSON object. No markdown, no text.
+      - Return ONLY a valid JSON object. No markdown, no text before or after the JSON.
       - Create 30 UNIQUE days. Each day must include specific "Tactical Steps" and "Recommended Tools" (e.g., Canva, Google Business, Porter App).
       - Use the Monthly Revenue Target (${monthlyRevenue}) to divide the Budget Plan.
 
@@ -141,13 +144,36 @@ export async function POST(req: Request) {
     `;
 
     const result = await model.generateContent(prompt);
-    const text = result.response.text();
+    let text = result.response.text();
 
-    const jsonStart = text.indexOf('{');
-    const jsonEnd = text.lastIndexOf('}') + 1;
-    const jsonString = text.substring(jsonStart, jsonEnd);
+    console.log("[MOM Engine] Raw Gemini response length:", text.length);
 
-    const roadmapData = JSON.parse(jsonString);
+    // Robust JSON Extraction
+    const startIdx = text.indexOf('{');
+    const endIdx = text.lastIndexOf('}') + 1;
+
+    if (startIdx === -1 || endIdx === 0) {
+      throw new Error("No JSON object found in Gemini response");
+    }
+
+    const jsonString = text.substring(startIdx, endIdx).trim();
+    let roadmapData: any;
+
+    try {
+      roadmapData = JSON.parse(jsonString);
+    } catch (e: any) {
+      console.error("[MOM Engine] JSON Parse failed. Likely truncated.");
+      console.error("[MOM Engine] Error:", e.message);
+      console.error("[MOM Engine] End of received text:", jsonString.substring(jsonString.length - 200));
+
+      // Attempt fix for missing closing braces if truncated
+      try {
+        const cleaned = jsonString.substring(0, jsonString.lastIndexOf('}') + 1);
+        roadmapData = JSON.parse(cleaned);
+      } catch (innerError) {
+        throw new Error(`Engine output was truncated or malformed: ${e.message}`);
+      }
+    }
 
     // 🔥 PUSH TO CONVEX WITH FULL METADATA
     await convex.mutation(api.roadmaps.createRoadmap, {
