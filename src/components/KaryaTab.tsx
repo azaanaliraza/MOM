@@ -4,10 +4,10 @@ import ReactMarkdown from 'react-markdown';
 import { 
   Search, Terminal, Copy, Download, Sparkles, MapPin, 
   ExternalLink, Zap, AlertCircle, Video, Image as ImageIcon, 
-  Camera, Globe, Link2, Plus, Save, Trash2, Info, X, Lock
+  Camera, Globe, Link2, Plus, Save, Trash2, Info, X, Lock, RotateCw
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useQuery, useMutation } from "convex/react";
+import { useQuery, useMutation, useAction } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
@@ -24,8 +24,7 @@ interface KaryaTabProps {
 export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay = 1 }: KaryaTabProps) {
   const { user } = useUser();
   
-  const allRoadmaps = useQuery(api.roadmaps.listMyRoadmaps, user ? { userId: user.id } : "skip");
-  const currentRoadmap = allRoadmaps?.find(r => r._id === roadmapId);
+  const currentRoadmap = useQuery(api.roadmaps.getRoadmap, { roadmapId });
   const dbUser = useQuery(api.users.getUser, user ? { clerkId: user.id } : "skip");
 
   const [loading, setLoading] = useState(false);
@@ -37,8 +36,50 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
   const [generatedReel, setGeneratedReel] = useState<string | null>(null);
   const [posterLoading, setPosterLoading] = useState(false);
   const [reelLoading, setReelLoading] = useState(false);
+  const [posting, setPosting] = useState<string | null>(null);
+  const [currentImagePrompt, setCurrentImagePrompt] = useState<string | null>(null);
+  const [currentVideoPrompt, setCurrentVideoPrompt] = useState<string | null>(null);
 
+  // DB persistence
+  const saveKaryaOutput = useMutation(api.roadmaps.saveKaryaOutput);
+  const updateKaryaAsset = useMutation(api.roadmaps.updateKaryaAsset);
+  const postToSocial = useAction(api.whatsapp.postToSocial);
+  const persistUrl = useAction(api.whatsapp.persistUrlToStorage);
+  const [outputId, setOutputId] = useState<string | null>(null);
 
+  // Load saved output for current day on mount
+  useEffect(() => {
+    if (currentRoadmap?.karyaOutputs) {
+      const saved = currentRoadmap.karyaOutputs.find((o: any) => o.day === currentDay);
+      if (saved) {
+        setGeneratedResult({ type: saved.type, report: saved.report });
+        setOutputId(saved.genId);
+        
+        const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL || "";
+        
+        if (saved.posterStorageId) {
+          setGeneratedPoster(`${convexUrl}/api/storage/${saved.posterStorageId}`);
+        } else if (saved.posterUrl) {
+          setGeneratedPoster(saved.posterUrl);
+        }
+        setCurrentImagePrompt(saved.imagePrompt || null);
+
+        if (saved.reelStorageId) {
+          setGeneratedReel(`${convexUrl}/api/storage/${saved.reelStorageId}`);
+        } else if (saved.reelUrl) {
+          setGeneratedReel(saved.reelUrl);
+        }
+        setCurrentVideoPrompt(saved.videoPrompt || null);
+      } else {
+        setGeneratedResult(null);
+        setGeneratedPoster(null);
+        setGeneratedReel(null);
+        setOutputId(null);
+        setCurrentImagePrompt(null);
+        setCurrentVideoPrompt(null);
+      }
+    }
+  }, [currentDay, currentRoadmap?.karyaOutputs]);
 
   const startKarya = async () => {
     const aiContext = currentRoadmap?.businessVault?.aiContext;
@@ -70,11 +111,31 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
       const decision = await brainRes.json();
       if (decision.error) throw new Error(decision.error);
       setGeneratedResult(decision);
+      const imgPrmpt = decision.imagePrompt || null;
+      const vidPrmpt = decision.videoPrompt || decision.imagePrompt || "Cinematic business promo";
+      setCurrentImagePrompt(imgPrmpt);
+      setCurrentVideoPrompt(vidPrmpt);
 
-      if (decision.type === 'poster' && decision.imagePrompt) {
-          generatePoster(decision.imagePrompt);
+      // Save to DB immediately
+      const id = Math.random().toString(36).substr(2, 9);
+      setOutputId(id);
+      await saveKaryaOutput({
+        roadmapId,
+        output: {
+          genId: id,
+          day: currentDay,
+          type: decision.type || "guide",
+          report: decision.report || "",
+          imagePrompt: imgPrmpt,
+          videoPrompt: vidPrmpt,
+          createdAt: Date.now(),
+        }
+      });
+
+      if (decision.type === 'poster' && imgPrmpt) {
+          generatePoster(imgPrmpt, id);
       } else if (decision.type === 'reel' || decision.type === 'video') {
-          generateReel(decision.videoPrompt || decision.imagePrompt || "Cinematic business promo");
+          generateReel(vidPrmpt, id);
       }
 
     } catch (err: any) {
@@ -86,7 +147,7 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
     }
   };
 
-  const generatePoster = async (prompt: string) => {
+  const generatePoster = async (prompt: string, oid?: string) => {
     setPosterLoading(true);
     try {
         const res = await fetch("/api/karya/generate/image", {
@@ -94,7 +155,19 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
             body: JSON.stringify({ prompt }),
         });
         const data = await res.json();
-        if (data.imageUrl) setGeneratedPoster(data.imageUrl);
+        if (data.imageUrl) {
+          setGeneratedPoster(data.imageUrl);
+          /* Temporary: Disabled persistence to avoid size limits
+          try {
+            const storageId = await persistUrl({ url: data.imageUrl });
+            if (id) await updateKaryaAsset({ roadmapId, outputId: id, posterUrl: data.imageUrl, posterStorageId: storageId });
+            setGeneratedPoster(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/storage/${storageId}`);
+          } catch (storageErr) {
+            console.error("Storage save failed, falling back to temp URL", storageErr);
+            if (id) await updateKaryaAsset({ roadmapId, outputId: id, posterUrl: data.imageUrl });
+          }
+          */
+        }
     } catch (e) {
         console.error("Poster generation failed", e);
     } finally {
@@ -102,7 +175,7 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
     }
   };
 
-  const generateReel = async (prompt: string) => {
+  const generateReel = async (prompt: string, oid?: string) => {
     setReelLoading(true);
     try {
         const res = await fetch("/api/karya/generate/video", {
@@ -110,11 +183,61 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
             body: JSON.stringify({ prompt }),
         });
         const data = await res.json();
-        if (data.videoUrl) setGeneratedReel(data.videoUrl);
+        if (data.videoUrl) {
+          setGeneratedReel(data.videoUrl);
+          /* Temporary: Disabled persistence to avoid size limits
+          try {
+            const storageId = await persistUrl({ url: data.videoUrl });
+            if (id) await updateKaryaAsset({ roadmapId, outputId: id, reelUrl: data.videoUrl, reelStorageId: storageId });
+            setGeneratedReel(`${process.env.NEXT_PUBLIC_CONVEX_URL}/api/storage/${storageId}`);
+          } catch (storageErr) {
+            console.error("Video storage failed", storageErr);
+            if (id) await updateKaryaAsset({ roadmapId, outputId: id, reelUrl: data.videoUrl });
+          }
+          */
+        }
     } catch (e) {
         console.error("Reel generation failed", e);
     } finally {
         setReelLoading(false);
+    }
+  };
+
+  const handlePost = async (platform: "instagram" | "gmb", contentType: "poster" | "reel") => {
+    if (!user) return;
+    setPosting(contentType);
+    try {
+      await postToSocial({
+        clerkId: user.id,
+        platform,
+        content: generatedResult?.report?.substring(0, 300) || "Check out our latest!",
+        imageUrl: contentType === "poster" ? generatedPoster || undefined : generatedReel || undefined
+      });
+      alert(`✅ Posted to ${platform === 'instagram' ? 'Instagram' : 'Google Business'} successfully!`);
+    } catch (err: any) {
+      console.error(err);
+      alert(`❌ Post failed: ${err.message || "Unknown error"}`);
+    } finally {
+      setPosting(null);
+    }
+  };
+
+  const handleDownload = async (url: string, filename: string) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Download failed:", error);
+      // Fallback: open in new tab
+      window.open(url, '_blank');
     }
   };
 
@@ -245,10 +368,35 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
                       </div>
                       <div className="mt-8 flex justify-between items-center px-4">
                           <p className="text-[11px] font-black uppercase tracking-widest text-stone-900">Custom Poster</p>
-                          <button disabled={!generatedPoster} className="p-5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-2xl disabled:opacity-30">
-                              <Download size={16} />
-                          </button>
+                          <div className="flex gap-3">
+                            <button 
+                                onClick={() => currentImagePrompt && generatePoster(currentImagePrompt)}
+                                disabled={posterLoading || !currentImagePrompt}
+                                className="p-5 bg-stone-50 hover:bg-stone-100 text-stone-600 rounded-2xl disabled:opacity-30 active:rotate-180 transition-all duration-500"
+                                title="Regenerate Poster"
+                            >
+                                <RotateCw size={16} className={posterLoading ? "animate-spin" : ""} />
+                            </button>
+                            <button 
+                                onClick={() => generatedPoster && handleDownload(generatedPoster, "brand_poster.png")}
+                                disabled={!generatedPoster} 
+                                className="p-5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-2xl disabled:opacity-30"
+                            >
+                                <Download size={16} />
+                            </button>
+                          </div>
                       </div>
+                      {generatedPoster && (
+                        <div className="mt-4 flex gap-3 px-4">
+                          <button 
+                            onClick={() => handlePost('instagram', 'poster')}
+                            disabled={posting === 'poster'}
+                            className="flex-1 py-4 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 shadow-xl flex items-center justify-center gap-2 disabled:opacity-50"
+                          >
+                            {posting === 'poster' ? <><div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" /> Posting...</> : <><Camera size={12} /> Post to Instagram</>}
+                          </button>
+                        </div>
+                      )}
                   </div>
 
                   <div className={`p-10 bg-indigo-950 text-white rounded-[3.5rem] transition-all duration-500 relative group overflow-hidden ${!generatedReel && !reelLoading ? 'opacity-30 cursor-not-allowed grayscale' : 'hover:shadow-2xl shadow-indigo-900/40'}`}>
@@ -273,10 +421,35 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
                       </div>
                       <div className="mt-8 flex justify-between items-center px-4 relative z-10">
                           <p className="text-[11px] font-black uppercase tracking-widest text-white">Engagement Reel</p>
-                          <button disabled={!generatedReel} className="p-5 bg-white/10 hover:bg-white/20 text-white rounded-2xl transition-colors border border-white/10 disabled:opacity-30">
-                              <Download size={16} />
-                          </button>
+                          <div className="flex gap-3">
+                            <button 
+                                onClick={() => currentVideoPrompt && generateReel(currentVideoPrompt)}
+                                disabled={reelLoading || !currentVideoPrompt}
+                                className="p-5 bg-white/5 hover:bg-white/10 text-white/60 rounded-2xl disabled:opacity-30 active:rotate-180 transition-all duration-500 border border-white/5"
+                                title="Regenerate Reel"
+                            >
+                                <RotateCw size={16} className={reelLoading ? "animate-spin" : ""} />
+                            </button>
+                            <button 
+                                onClick={() => generatedReel && handleDownload(generatedReel, "brand_reel.mp4")}
+                                disabled={!generatedReel} 
+                                className="p-5 bg-white/10 hover:bg-white/20 text-white rounded-2xl transition-colors border border-white/10 disabled:opacity-30"
+                            >
+                                <Download size={16} />
+                            </button>
+                          </div>
                       </div>
+                      {generatedReel && (
+                        <div className="mt-4 flex gap-3 px-4 relative z-10">
+                          <button 
+                            onClick={() => handlePost('instagram', 'reel')}
+                            disabled={posting === 'reel'}
+                            className="flex-1 py-4 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest hover:opacity-90 transition-all active:scale-95 shadow-xl flex items-center justify-center gap-2 disabled:opacity-50"
+                          >
+                            {posting === 'reel' ? <><div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" /> Posting...</> : <><Camera size={12} /> Post Reel to Instagram</>}
+                          </button>
+                        </div>
+                      )}
                   </div>
               </div>
           </div>

@@ -1,0 +1,1558 @@
+﻿node.exe : - Preparing 
+Convex functions...
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (-  
+   Preparing Convex fun   
+ ctions...:String) [],    
+ RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+
+[31mΓ£û[39m Schema 
+validation failed.
+Document with ID "j5707aph
+ckmey0sxntb887a8bh83svdk" 
+in table "roadmaps" does 
+not match the schema: 
+Object contains extra 
+field `data` that is not 
+in the validator.
+
+Object: {address: "lal 
+kurti", brandName: "rk 
+tharak", businessVault: 
+{aiContext: "\n\n[New 
+Intelligence]:\nThis is a 
+comprehensive marketing 
+intelligence brief based 
+on the digital product 
+catalog layout 
+provided.\n\n---\n\n# 
+≡ƒæÖ Marketing 
+Intelligence Brief: 
+Innerwear & Activewear 
+Segment\n\n## ≡ƒôª 
+Products & Inventory\n*   
+**Daily Essentials 
+(Jockey):** Wirefree 
+Non-Padded & Super Combed 
+Cotton bras. Price Range: 
+**Γé╣429 ΓÇô Γé╣1,199**. 
+(High-volume, \"bread and 
+butter\" items).\n*   
+**Comfort & Shape 
+(Jockey):** Wirefree 
+Padded & Under-wired 
+Padded bras. Price Range: 
+**Γé╣669 ΓÇô 
+Γé╣1,049**.\n*   
+**Premium Activewear 
+(PUMA):** Seamless and 
+High-Impact sports bras. 
+Price Range: **Γé╣1,999 
+ΓÇô Γé╣2,738**.\n*   
+**Hero Product:** 
+**WomenΓÇÖs PUMA Move 
+Shapeluxe Seamless 
+(Γé╣2,738)**. *Ye item 
+toh hero material hai!* 
+The vibrant purple color 
+and professional fitness 
+aesthetic make it the 
+perfect 
+\"scroll-stopper\" for 
+social media.\n*   
+**Seasonal/Festival 
+Focus:** The cotton-heavy 
+Jockey range is essential 
+for the Indian summer. 
+The PUMA range is perfect 
+for \"New Year Fitness 
+Resolution\" or 
+\"Pre-Wedding Glow-up\" 
+campaigns.\n*   
+**Combo/Bundle 
+Opportunities:** \n    *  
+ \"The Work-from-Home 
+Comfort Pack\" (3 
+Wirefree Non-padded bras 
+for a discounted 
+price).\n    *   \"The 
+Fitness Starter Kit\" 
+(PUMA sports bra + Jockey 
+cotton basics).\n\n## 
+≡ƒÄ¿ Brand Identity 
+Signals\n*   **Logos:** 
+Clear Jockey and PUMA 
+logos in text 
+descriptors.\n*   
+**Typography:** Modern, 
+clean, sans-serif 
+fontΓÇöhighly legible for 
+mobile shopping.\n*   
+**Visual Identity:** 
+**Mid-range to Premium**. 
+The inclusion of PUMA at 
+the Γé╣2k+ price point 
+elevates the overall 
+brand perception from 
+just \"basic essentials\" 
+to \"lifestyle and 
+performance.\"\n*   
+**Color Palette:** 
+Dominated by neutrals 
+(white, beige, skin 
+tones) with strategic 
+\"pops\" of berry, 
+maroon, and vibrant 
+purple to draw the 
+eye.\n\n## ≡ƒÅ¬ Store 
+Ambiance & Visual 
+Merchandising (Digital 
+Catalog)\n*   **Lighting 
+Quality:** **10/10**. 
+Professional studio 
+lighting. No harsh 
+shadows; highlights the 
+fabric texture and fit 
+perfectly.\n*   
+**Cleanliness & 
+Organization:** 
+**10/10**. Perfect grid 
+alignment. Consistent 
+model posing and 
+background colors make 
+the catalog look 
+high-end.\n*   
+**Instagram-worthiness:** 
+**6/10**. The photos are 
+great for a website but 
+feel a bit \"clinical\" 
+for a feed. They need 
+lifestyle backgrounds to 
+truly perform on 
+Instagram.\n*   
+**Suggested 
+Improvements:** Add a 
+\"See it in motion\" 
+video hover effect. For 
+the Jockey basics, 
+showing the product on 
+different body types 
+would build massive 
+trust.\n\n## ≡ƒæÑ Target 
+Customer Profile\n*   
+**Who:** Urban and 
+semi-urban Indian women 
+(Gen Z and 
+Millennials).\n*   
+**Lifestyle:** 
+Comfort-conscious for 
+daily wear; aspirational 
+and brand-conscious for 
+fitness.\n*   **Income 
+Level:** Middle to 
+Upper-Middle class. They 
+are willing to pay Γé╣500 
+for a basic and Γé╣2500 
+for a \"good\" brand like 
+PUMA.\n*   **Search 
+Intent:** \"Best Jockey 
+bra for everyday use,\" 
+\"PUMA high impact sports 
+bra India,\" \"Seamless 
+padded bra for office 
+wear.\"\n\n## ≡ƒô╕ Photo 
+Quality Assessment\n*   
+**Social-Media-Ready:** 
+**Needs Editing**. These 
+are perfect for 
+Facebook/Google Ads. For 
+organic Instagram, they 
+need to be placed in 
+lifestyle templates or 
+used in \"educational\" 
+carousels.\n*   
+**Suggested Angles:** 
+Need a \"Back View\" shot 
+for every product to show 
+strap thickness and 
+hook-and-eye 
+detailsΓÇö*customers want 
+to see the support!*\n*   
+**What would make this go 
+viral?** A \"Real 
+Bodies\" campaign using 
+these exact products but 
+showing them on women of 
+various shapes and sizes 
+without retouching.\n\n## 
+≡ƒô▒ Social Media Content 
+Opportunities\n*   **Reel 
+Idea 1 (The Educator):** 
+\"Stop wearing the wrong 
+size! 3 signs your bra 
+doesn't fit (and which 
+Jockey bra fixes 
+it).\"\n*   **Reel Idea 2 
+(The Performance Test):** 
+\"Jump test! Seeing how 
+much the PUMA High Impact 
+Support actually 
+holds.\"\n*   
+**Behind-the-Scenes:** 
+\"How we curate the 
+perfect comfort 
+collection for the Indian 
+summer.\"\n*   **Flat-lay 
+Opportunity:** The PUMA 
+Move Shapeluxe (Purple) 
+paired with a yoga mat, a 
+water bottle, and some 
+Airpods. Highly 
+\"aesthetic.\"\n\n## ≡ƒÅå 
+Competitive 
+Positioning\n*   
+**Positioning:** 
+**Premium Mid-market.** 
+You are competing with 
+the likes of Enamor, 
+Zivame (private labels), 
+and H&M Move.\n*   
+**Winning Factor:** The 
+trust of the \"Jockey 
+India\" brand name 
+combined with the \"cool 
+factor\" of PUMA.\n*   
+**Visual Upgrades:** 
+Adding \"Best Seller\" or 
+\"Customer Favorite\" 
+badges on the Jockey 
+basics would create FOMO 
+(Fear Of Missing Out) and 
+speed up the purchase deci
+sion.\n\n---\n**Analyst 
+Note:** Your current mix 
+is very strong. The 
+lower-priced Jockey items 
+bring them in the door 
+(*paisa vasool*), and the 
+PUMA items increase your 
+average order value. 
+Focus your ads on the 
+PUMA \"hero\" but 
+retarget them with the 
+Jockey \"essentials.\"", 
+images: ["kg21zckw5r3ygcck
+2tvt6wgak583sqx5"]}, 
+category: "Retail", 
+createdAt: 
+1774723288309.0, data: 
+{brand: {businessType: 
+"Retail", city: "meerut", 
+name: "rk tharak", 
+tagline: "Sahi fitting, 
+behetareen comfort ΓÇö Ab 
+Lal Kurti mein!", 
+targetCustomerAvatar: 
+"Women aged 18-45 in 
+Meerut; college students 
+at CCS University, 
+working professionals, 
+and homemakers who value 
+comfort but find local 
+markets too crowded. They 
+use WhatsApp for 
+everything and watch 
+'relatable' lifestyle 
+Reels.", uniqueInsight: 
+"While most shops in Lal 
+Kurti are crowded and 
+male-dominated, rk tharak 
+offers a 'Privacy-First' 
+shopping experience with 
+discreet home delivery 
+and expert size 
+consultation that 
+Meerut's women truly 
+value."}, budgetPlan: 
+{roi_tip: "For a retail 
+shop in Lal Kurti, 
+WhatsApp Status and GMB 
+reviews give the HIGHEST 
+ROI because they convert 
+existing footfall and 
+local searchers for 
+free.", under2000: 
+["Collaborate with a 
+local micro-influencer 
+(Gifting + small fee)", 
+"Instagram Ads targeting 
+women in a 5km radius of 
+Lal Kurti", "Professional 
+photo shoot of your top 
+10 products"], under500: 
+["Print 500 simple 
+'Referral Cards' or 
+business cards", "Boost 
+one high-performing Reel 
+for 2 days targeting 
+Meerut women", "Print a 
+QR code standee for the 
+billing counter"], 
+zeroRupee: ["WhatsApp 
+Status updates (3x 
+daily)", "Google My 
+Business daily posts and 
+photos", "Instagram Reels 
+with trending audio", 
+"In-person size 
+consultation service", 
+"Asking every customer 
+for a Google Review"]}, 
+marketingDNA: 
+{brandColors: ["#FF69B4", 
+"#800080", "#FFFFFF"], 
+competitiveEdge: "Free 
+'Size Consultation' via 
+WhatsApp and 'Discreet 
+2-Hour Delivery' in 
+Meerut via Borzo/Porter 
+ΓÇö something the big 
+players can't do at a 
+local level.", 
+contentPillars: ["Fabric 
+& Comfort Education", 
+"Discreet Packaging 
+Process", "Customer 
+Fitting Success Stories", 
+"New Stock 
+Announcements"], 
+primaryChannels: 
+["WhatsApp", "Instagram", 
+"Google My Business"], 
+targetAudience: "Primary: 
+Women (18-45) in Meerut. 
+Secondary: 
+Husbands/Partners looking 
+for quality gift sets.", 
+toneOfVoice: "Respectful, 
+supportive, and 
+expert-led. Like a 'Badi 
+Behen' (elder sister) who 
+knows the best brands and 
+fits.", topTriggers: 
+["Comfort Guarantee", 
+"Discreet Packaging 
+(Parda Policy)", "Paisa 
+Vasool Combos", "Lal 
+Kurti Trust"]}, 
+platformStrategy: 
+{delivery: {platforms: 
+["Borzo", "Porter", 
+"Local Delivery Boy"], 
+tips: "Use plain brown 
+paper bags or unbranded 
+boxes. No product names 
+on the outside of the 
+packet ΓÇö Meerut 
+customers value this 
+privacy."}, 
+googleMyBusiness: 
+{keywords: ["Women's 
+undergarments Meerut", 
+"Lingerie shop in Lal 
+Kurti", "Bra shop near 
+me", "Panty shop Meerut", 
+"rk tharak Meerut", 
+"Ladies hosiery Lal 
+Kurti", "Best innerwear 
+shop Meerut", "Bridal 
+innerwear Meerut", 
+"Cotton bras Lal Kurti", 
+"Nightwear Meerut"], 
+priority: "high", 
+quickWin: "Upload 10 
+high-quality photos of 
+your shop front and the 
+neatly organized interior 
+to build trust.", 
+reviewStrategy: "Ask 
+every happy customer: 
+'Agar product pasand 
+aaya, toh ek 5-star 
+review de dijiye?' Offer 
+a Γé╣20 discount on their 
+next purchase for a photo 
+review."}, instagram: 
+{contentPillars: 
+["Product Close-ups 
+(Focus on texture)", 
+"Educational Reels (How 
+to choose the right 
+size)", "Behind the 
+scenes (Safe and clean 
+packaging)"], 
+hashtagSets: {local: 
+["#MeerutDiaries", 
+"#LalKurtiMeerut", 
+"#MeerutShopping", 
+"#MeerutGirls", 
+"#RkTharak"], niche: 
+["#InnerwearIndia", 
+"#ComfortWear", 
+"#WomensHosiery", 
+"#SizeGuide", 
+"#LingerieMeerut"], 
+trending: 
+["#SmallBusinessBharat", 
+"#VocalForLocal", 
+"#PaisaVasool"]}, 
+postingSchedule: "Reels 
+at 7 PM (post-dinner 
+scrolling), Stories at 11 
+AM and 4 PM.", priority: 
+"high", reelIdeas: 
+["Hook: 'Lal Kurti ki 
+bheed se bacho!' Show the 
+peace of ordering at 
+home.", "Hook: 'Are you 
+wearing the wrong size?' 
+3 signs you need a 
+change.", "Hook: 'What's 
+inside our secret 
+package?' Show discreet 
+brown-box packing."]}, 
+whatsapp: {catalogItems: 
+["Daily Wear Cotton Bra 
+Combo", "Seamless Panty 
+Set (Pack of 3)", 
+"Premium Bridal Set", 
+"Sports/Gym Wear 
+Collection", "Summer 
+Special Camisoles"], 
+priority: "high", 
+quickWin: "Update your 
+WhatsApp Bio to: 'Lal 
+Kurti's most trusted 
+innerwear shop. Message 
+for discreet delivery.'", 
+tactics: ["Create a 
+'Privacy-First' VIP 
+Broadcast list.", "Use 
+WhatsApp Status for 
+'Daily Stock Update' at 
+12 PM.", "Set up an 
+automated 'Size Guide' 
+PDF in the welcome 
+message.", "Offer 
+'WhatsApp-Only' flash 
+sales every Sunday.", 
+"Use Voice Notes to 
+explain fabric feel ΓÇö 
+builds 3x more 
+trust."]}}, 
+successMetrics: 
+{northStar: "Γé╣1,00,000 
+Total Monthly Revenue 
+with at least 30% repeat 
+customers.", week1KPI: 
+"10+ New Google Reviews 
+and Catalog fully setup", 
+week2KPI: "50+ New 
+WhatsApp contacts through 
+GMB and status shares", 
+week4KPI: "20+ Referral 
+sales and Γé╣25k weekly 
+revenue hit"}, 
+thirtyDayPlan: 
+[{caption_template: "Good 
+Morning Meerut! ≡ƒî╕ Ab 
+aap rk tharak ke best 
+products ghar baithe dekh 
+sakte hain. WhatsApp 
+Catalog check kariye aur 
+order kariye! ≡ƒô▓ [Link] 
+#MeerutShopping 
+#LalKurti", contentTheme: 
+"Sale Sunday", day: 1.0, 
+dayOfWeek: "Sunday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Update GMB hours and 
+location in Lal Kurti.", 
+"Step 2: Add top 10 items 
+to WhatsApp Business 
+Catalog with prices.", 
+"Step 3: Post a Status: 
+'Ab rk tharak online bhi! 
+Message for Catalog.'"], 
+insight: "Sunday is when 
+people plan their weekly 
+needs. Having a visible 
+catalog is crucial.", 
+label: "GMB & WhatsApp 
+Catalog Setup", 
+recommended_tools: 
+[{name: "WhatsApp 
+Business", purpose: 
+"Inventory display", url: 
+"https://www.whatsapp.com/
+business/"}], status: 
+"active", time_required: 
+"60 minutes"}, 
+{caption_template: 
+"Shopping mein no sharam! 
+≡ƒôª rk tharak ki 
+delivery hai bilkul 
+discreet. Bahar se koi 
+nahi jaan payega andar 
+kya hai. Order now on 
+WhatsApp! ≡ƒñÉΓ£¿ 
+#PrivacyFirst #Meerut 
+#rktharak", contentTheme: 
+"Motivation Monday", day: 
+2.0, dayOfWeek: "Monday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Click a photo of a 
+neatly packed brown 
+box.", "Step 2: Write 
+about 'Zero Label 
+Delivery'.", "Step 3: 
+Share on Instagram and 
+WhatsApp Status."], 
+insight: "Women in Tier 2 
+cities often hesitate to 
+buy innerwear due to lack 
+of privacy.", label: "The 
+'Privacy Policy' Post", 
+recommended_tools: 
+[{name: "Canva", purpose: 
+"Graphic for 'Discreet 
+Delivery'", url: "https://
+www.canva.com"}], status: 
+"active", time_required: 
+"30 minutes"}, 
+{caption_template: "Lal 
+Kurti ki ek aur khush 
+customer! Γ¥ñ\u{fe0f} 
+'Best quality aur itni 
+fast delivery.' Aapka 
+bharosa hi rk tharak ki 
+asli kamai hai. ≡ƒÖÅ 
+#MeerutReview #Trust", 
+contentTheme: 
+"Testimonial Tuesday", 
+day: 3.0, dayOfWeek: 
+"Tuesday", difficulty: 
+"Easy", execution_steps: 
+["Step 1: Ask a regular 
+customer from Lal Kurti 
+for a quick WhatsApp 
+review.", "Step 2: 
+Screenshot it (hide their 
+name/number for 
+privacy).", "Step 3: Post 
+with a 'Thank You' 
+note."], insight: "Local 
+social proof is stronger 
+than any ad.", label: 
+"First Customer 
+Testimonial", 
+recommended_tools: 
+[{name: "Instasize", 
+purpose: "Layout for 
+testimonials", url: "https
+://instasize.com"}], 
+status: "active", 
+time_required: "20 
+minutes"}, 
+{caption_template: "Garmi 
+mein chip-chip se 
+chutkara! ΓÿÇ\u{fe0f} 
+100% breathable cotton 
+collection ab stock mein 
+hai. Rate jaan-ne ke liye 
+'Cotton' comment karein! 
+≡ƒæç #MeerutSummer 
+#ComfortWear", 
+contentTheme: "Reel 
+Wednesday", day: 4.0, 
+dayOfWeek: "Wednesday", 
+difficulty: "Medium", 
+execution_steps: ["Step 
+1: Record a 7-second 
+video touching a soft 
+cotton bra.", "Step 2: 
+Use a trending slow-tempo 
+Hindi song.", "Step 3: 
+Text overlay: 'Meerut ki 
+garmi vs rk tharak ka 
+100% cotton comfort.'"], 
+insight: "Meerut summers 
+are harsh; cotton sells 
+best.", label: "Fabric 
+Education Reel", 
+recommended_tools: 
+[{name: "Instagram 
+Reels", purpose: "Reach 
+local audience", url: "htt
+ps://instagram.com"}], 
+status: "active", 
+time_required: "45 
+minutes"}, 
+{caption_template: "Kya 
+aapka bra strap baar-baar 
+girta hai? ≡ƒôë It means 
+fitting galat hai! rk 
+tharak pe aaiye ya 
+WhatsApp kijiye for free 
+size consultation. 
+#SizeMatters 
+#FittingExpert", 
+contentTheme: "Throwback 
+Thursday", day: 5.0, 
+dayOfWeek: "Thursday", 
+difficulty: "Medium", 
+execution_steps: ["Step 
+1: Create a simple 'How 
+to Measure' graphic.", 
+"Step 2: Share on 
+Instagram Stories with a 
+Poll: 'Do you know your 
+correct size?'", "Step 3: 
+DM everyone who says 'No' 
+with help."], insight: 
+"80% of women wear the 
+wrong size. Helping them 
+find the right one builds 
+authority.", label: "The 
+Size Guide Story", 
+recommended_tools: 
+[{name: "CapCut", 
+purpose: "Edit 
+educational stories", 
+url: 
+"https://capcut.com"}], 
+status: "active", 
+time_required: "40 
+minutes"}, 
+{caption_template: 
+"Friday Feeling with our 
+Premium Collection! Γ£¿ 
+Special occasions ke liye 
+special quality. MRP 
+Γé╣999, rk tharak Price: 
+Γé╣649 only! ≡ƒÿì 
+#BridalWear Meerut 
+#LingerieLove", 
+contentTheme: "Feature 
+Friday", day: 6.0, 
+dayOfWeek: "Friday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Showcase a premium 
+'Bridal Set' with 
+aesthetic lighting.", 
+"Step 2: Highlight the 
+lace/work detail.", "Step 
+3: Mention: 'Perfect for 
+Gifting'."], insight: 
+"Bridal/Fancy sets have 
+higher margins and move 
+well on weekends.", 
+label: "Hero Product 
+Spotlight", 
+recommended_tools: 
+[{name: "Lightroom 
+Mobile", purpose: 
+"Enhance product photos", 
+url: 
+"https://adobe.com"}], 
+status: "active", 
+time_required: "30 
+minutes"}, 
+{caption_template: "Aaiye 
+Lal Kurti! ≡ƒôì rk tharak 
+par har cheez hai fresh 
+aur hygienic. Safe 
+shopping, best products. 
+Milte hain! ≡ƒÿè 
+#MeerutMarket 
+#ShopLocal", 
+contentTheme: "Story 
+Saturday", day: 7.0, 
+dayOfWeek: "Saturday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Film a quick 'Day in 
+life' at the Lal Kurti 
+shop.", "Step 2: Show the 
+sanitized racks and fresh 
+stock.", "Step 3: Post as 
+a story: 'We are ready 
+for your weekend 
+visit!'"], insight: 
+"Hygiene is a major 
+factor for innerwear 
+shopping.", label: 
+"Behind the Scenes (Shop 
+Cleanliness)", 
+recommended_tools: 
+[{name: "Instagram 
+Stories", purpose: 
+"Engagement", url: "https:
+//instagram.com"}], 
+status: "active", 
+time_required: "20 
+minutes"}, 
+{caption_template: 
+"SUNDAY FLASH SALE! ΓÜí 
+Sirf aaj ke liye: Buy 2 
+Panties, Get 1 FREE! 
+Stock khatam hone se 
+pehle message karein. ≡ƒÅâ
+\u{200d}ΓÖÇ\u{fe0f}≡ƒÆ¿ 
+#FlashSale #MeerutDeals", 
+contentTheme: "Sale 
+Sunday", day: 8.0, 
+dayOfWeek: "Sunday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Pick 3 slow-moving 
+items.", "Step 2: Create 
+a 'Buy 2 Get 1' offer 
+valid only till 9 PM 
+today.", "Step 3: Send to 
+your Broadcast list and 
+Status."], insight: 
+"Creates urgency and 
+rewards WhatsApp 
+followers.", label: 
+"WhatsApp-Only Flash 
+Sale", recommended_tools: 
+[{name: "WhatsApp 
+Business", purpose: 
+"Direct sales", url: 
+"https://whatsapp.com"}], 
+status: "active", 
+time_required: "30 
+minutes"}, 
+{caption_template: "Visit 
+rk tharak in Lal Kurti 
+and get a flat 10% 
+discount on your first 
+purchase! Best quality, 
+best rates. 
+#MeerutHosiery 
+#LalKurtiShop", 
+contentTheme: "Motivation 
+Monday", day: 9.0, 
+dayOfWeek: "Monday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Go to GMB Dashboard.", 
+"Step 2: Add an 'Offer' 
+post: '10% off for 
+first-time walk-ins'.", 
+"Step 3: Add a photo of 
+the shop with the 
+location tag."], insight: 
+"Google loves active 
+profiles. Weekly 'Update' 
+posts boost search 
+ranking.", label: "GMB 
+Weekly Offer Update", 
+recommended_tools: 
+[{name: "Google Maps", 
+purpose: "Local SEO", 
+url: "https://google.com/m
+aps"}], status: "active", 
+time_required: "15 
+minutes"}, 
+{caption_template: 
+"T-shirt ke neeche lines 
+dikhti hain? ≡ƒæò Try our 
+Seamless Collection. 
+Bilkul smooth fitting, 
+bilkul invisible look. rk 
+tharak special! Γ£¿ 
+#TshirtBra 
+#MeerutFashion", 
+contentTheme: 
+"Testimonial Tuesday", 
+day: 10.0, dayOfWeek: 
+"Tuesday", difficulty: 
+"Medium", 
+execution_steps: ["Step 
+1: Show a seamless bra vs 
+a regular one under a 
+fabric cloth.", "Step 2: 
+Show the difference in 
+'Finish'.", "Step 3: CTA: 
+'Get the smooth look 
+today!'"], insight: 
+"Product-specific 
+education solves a common 
+pain point (visible 
+lines).", label: "Video: 
+'The Perfect T-shirt 
+Bra'", recommended_tools: 
+[{name: "InShot", 
+purpose: "Video editing", 
+url: 
+"https://inshot.com"}], 
+status: "active", 
+time_required: "45 
+minutes"}, 
+{caption_template: "Even 
+Meerut's favorites love 
+rk tharak! Γ¥ñ\u{fe0f} 
+Check out what 
+[Influencer Name] thinks 
+about our latest 
+collection. 
+#MeerutInfluencer 
+#Collab", contentTheme: 
+"Reel Wednesday", day: 
+11.0, dayOfWeek: 
+"Wednesday", difficulty: 
+"Advanced", 
+execution_steps: ["Step 
+1: Identify a local 
+female blogger with 2k-5k 
+followers.", "Step 2: 
+Send her a 'Comfort 
+Hamper' 
+(Bra/Panty/Nighty).", 
+"Step 3: Ask for a simple 
+'Unboxing' story or 
+Reel."], insight: "A 
+shoutout from a local 
+Meerut lifestyle blogger 
+can bring hundreds of 
+followers.", label: 
+"Local Influencer 
+Collaboration", 
+recommended_tools: 
+[{name: "Instagram 
+Search", purpose: 
+"Influencer discovery", 
+url: "https://instagram.co
+m"}], status: "active", 
+time_required: "60 
+minutes"}, 
+{caption_template: "rk 
+tharak Savings Alert! 
+≡ƒÜ¿ Hamara 'Weekly 
+Comfort Kit' sirf Γé╣499 
+mein. Individually lenge 
+toh Γé╣650 ka padega. 
+Paise bachao, comfort 
+pao! ≡ƒÆ╕ #Savings 
+#MeerutDeals", 
+contentTheme: "Throwback 
+Thursday", day: 12.0, 
+dayOfWeek: "Thursday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Bundle 1 Bra + 2 
+Panties as a 'Weekly 
+Starter Kit'.", "Step 2: 
+Set a price like Γé╣499 
+(Anchor: Value Γé╣650).", 
+"Step 3: Post the 
+'Savings' visual."], 
+insight: "Combos increase 
+the average order value 
+(AOV).", label: "The 
+'Paisa Vasool' Combo 
+Post", recommended_tools: 
+[{name: "Canva", purpose: 
+"Combo deal graphic", 
+url: 
+"https://canva.com"}], 
+status: "active", 
+time_required: "30 
+minutes"}, 
+{caption_template: "Check 
+out this audio message 
+for a surprise update! 
+≡ƒÄº (Personalized for 
+WhatsApp DM)", 
+contentTheme: "Feature 
+Friday", day: 13.0, 
+dayOfWeek: "Friday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Record a warm 30-sec 
+voice note: 'Namaste! 
+Main rk tharak se bol 
+rahi hoon...'", "Step 2: 
+Talk about the new summer 
+stock.", "Step 3: Send to 
+top 20 loyal customers 
+individually."], insight: 
+"Hearing a human voice 
+makes the brand feel like 
+a neighbor.", label: 
+"Voice Note Marketing 
+Day", recommended_tools: 
+[{name: "WhatsApp", 
+purpose: "Personal 
+touch", url: 
+"https://whatsapp.com"}], 
+status: "active", 
+time_required: "40 
+minutes"}, 
+{caption_template: "Help 
+us decide, Meerut! ≡ƒÿì 
+Pink ya Blue? Kaunsa hai 
+aapka favorite? Vote 
+kariye! ≡ƒæç 
+#MeerutChoice 
+#PollOfTheDay", 
+contentTheme: "Story 
+Saturday", day: 14.0, 
+dayOfWeek: "Saturday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Post two colors of a 
+nighty (e.g., Pink vs 
+Blue).", "Step 2: Ask: 
+'Which one should we 
+stock more?'", "Step 3: 
+Use the 'Quiz' sticker 
+for fun facts about 
+fabrics."], insight: 
+"Polls increase 
+engagement and help in 
+inventory planning.", 
+label: "Weekend Market 
+'Poll' Story", 
+recommended_tools: 
+[{name: "Instagram 
+Stickers", purpose: 
+"Engagement", url: "https:
+//instagram.com"}], 
+status: "active", 
+time_required: "15 
+minutes"}, 
+{caption_template: "Dosti 
+ka fayda! ≡ƒæ¡ Apni 
+friend ko rk tharak refer 
+karein aur dono ko milega 
+Γé╣50 discount agle order 
+pe. Sharing is caring! 
+Γ¥ñ\u{fe0f} #Referral 
+#MeerutGirls", 
+contentTheme: "Sale 
+Sunday", day: 15.0, 
+dayOfWeek: "Sunday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Announcement: 'Bring a 
+friend, get Γé╣50 off for 
+both'.", "Step 2: Post a 
+simple graphic on 
+WhatsApp Status.", "Step 
+3: Track referrals in a 
+notebook."], insight: 
+"Referrals are the 
+cheapest way to get 
+high-quality leads in a 
+community.", label: "The 
+'Refer & Earn' Launch", 
+recommended_tools: 
+[{name: "Canva", purpose: 
+"Referral flyer", url: 
+"https://canva.com"}], 
+status: "active", 
+time_required: "30 
+minutes"}, 
+{caption_template: 
+"Packing your love! ≡ƒÆû 
+Har order rk tharak par 
+banta hai special. Aapne 
+order kiya kya? ≡ƒôª 
+#PackingOrders 
+#MeerutLocalBusiness", 
+contentTheme: "Motivation 
+Monday", day: 16.0, 
+dayOfWeek: "Monday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Record yourself 
+packing an order 
+(discreetly).", "Step 2: 
+Add a 'Thank you' card 
+inside.", "Step 3: Speed 
+up the video 
+(Time-lapse)."], insight: 
+"Unboxing videos build 
+massive curiosity and 
+trust.", label: "Customer 
+'Unboxing' Story", 
+recommended_tools: 
+[{name: "Instagram", 
+purpose: 
+"Behind-the-scenes", url: 
+"https://instagram.com"}],
+ status: "active", 
+time_required: "30 
+minutes"}, 
+{caption_template: 
+"Latest arrival at rk 
+tharak, Lal Kurti! 
+Quality check done. Best 
+rates in Meerut. Γ£à 
+#LocalBusiness #Meerut", 
+contentTheme: 
+"Testimonial Tuesday", 
+day: 17.0, dayOfWeek: 
+"Tuesday", difficulty: 
+"Easy", execution_steps: 
+["Step 1: Take 5 new 
+photos of your current 
+best-selling items.", 
+"Step 2: Upload them to 
+Google My Business as 
+'Product' photos.", "Step 
+3: Add captions with 
+price and keywords like 
+'Best bra in Meerut'."], 
+insight: "New photos keep 
+your GMB profile ranking 
+high.", label: "GMB Photo 
+Refresh (Top Sellers)", 
+recommended_tools: 
+[{name: "Google My 
+Business App", purpose: 
+"Local SEO", url: "https:/
+/business.google.com"}], 
+status: "active", 
+time_required: "20 
+minutes"}, 
+{caption_template: "Gym 
+ho ya Yoga, support hai 
+zaroori! 
+≡ƒºÿ\u{200d}ΓÖÇ\u{fe0f} 
+rk tharak ki high-impact 
+sports bras ab available 
+hain. Start your fitness 
+journey right! ≡ƒÆ¬ 
+#MeerutFitness 
+#SportsBra", 
+contentTheme: "Reel 
+Wednesday", day: 18.0, 
+dayOfWeek: "Wednesday", 
+difficulty: "Medium", 
+execution_steps: ["Step 
+1: Show a 'High Impact' 
+sports bra.", "Step 2: 
+Stretch the fabric to 
+show durability.", "Step 
+3: Hook: 'Don't ruin your 
+workout with the wrong 
+bra!'"], insight: "More 
+women in Meerut are 
+joining gyms/yoga. High 
+demand for sports bras.", 
+label: "The 'Sports Wear' 
+Push", recommended_tools: 
+[{name: "CapCut", 
+purpose: "Action-oriented 
+editing", url: 
+"https://capcut.com"}], 
+status: "active", 
+time_required: "45 
+minutes"}, 
+{caption_template: "Naya 
+stock, naye designs! ≡ƒÿì 
+Kal subah 11 baje catalog 
+update hoga. Taiyaar 
+rahein! ≡ƒñ½Γ£¿ 
+#ComingSoon #rktharak 
+#LalKurti", contentTheme: 
+"Throwback Thursday", 
+day: 19.0, dayOfWeek: 
+"Thursday", difficulty: 
+"Easy", execution_steps: 
+["Step 1: Post a picture 
+of unopened boxes.", 
+"Step 2: Caption: 
+'Something exciting 
+coming tomorrow!'", "Step 
+3: Use a Countdown 
+sticker on Stories."], 
+insight: "FOMO (Fear Of 
+Missing Out) works great 
+for new stock.", label: 
+"Inventory 'Sneak Peek'", 
+recommended_tools: 
+[{name: "Instagram 
+Stories", purpose: 
+"Teaser marketing", url: "
+https://instagram.com"}], 
+status: "active", 
+time_required: "15 
+minutes"}, 
+{caption_template: 
+"Presenting our Summer 
+2026 Collection! ≡ƒî╕ 
+Breathable fabrics, 
+trendy colors, and the 
+same rk tharak trust. 
+Link in bio to shop! ≡ƒô▓ 
+#NewArrivals 
+#MeerutShopping", 
+contentTheme: "Feature 
+Friday", day: 20.0, 
+dayOfWeek: "Friday", 
+difficulty: "Medium", 
+execution_steps: ["Step 
+1: Update the WhatsApp 
+Catalog with 10 new 
+items.", "Step 2: Send a 
+broadcast: 'The wait is 
+over! Check out our new 
+Summer collection.'", 
+"Step 3: Post a carousel 
+on Instagram."], insight: 
+"Capitalizing on the 
+previous day's hype.", 
+label: "Full Catalog 
+Reveal", 
+recommended_tools: 
+[{name: "WhatsApp 
+Business", purpose: 
+"Product launch", url: 
+"https://whatsapp.com"}], 
+status: "active", 
+time_required: "60 
+minutes"}, 
+{caption_template: "Aapka 
+feedback hamari takat 
+hai! Γ¥ñ\u{fe0f} Give us 
+a review on Google and 
+show it at the counter 
+for a small surprise 
+gift. ≡ƒÄü #ReviewUs 
+#Meerut", contentTheme: 
+"Story Saturday", day: 
+21.0, dayOfWeek: 
+"Saturday", difficulty: 
+"Easy", execution_steps: 
+["Step 1: Print a small 
+QR code that links to 
+your GMB review page.", 
+"Step 2: Keep it at the 
+billing counter.", "Step 
+3: Politely ask every 
+customer to scan and 
+rate."], insight: 
+"Weekend footfall is 
+high. Perfect time to ask 
+for in-person reviews.", 
+label: "Review Collection 
+Drive", 
+recommended_tools: 
+[{name: "QR Code Monkey", 
+purpose: "Generate review 
+QR", url: "https://www.qrc
+ode-monkey.com"}], 
+status: "active", 
+time_required: "30 
+minutes"}, 
+{caption_template: 
+"Family Sunday! ≡ƒæ¿\u{200
+d}≡ƒæ⌐\u{200d}≡ƒæº\u{200d}
+≡ƒæª Panty Packs of 6 
+starting at just Γé╣XXX. 
+Poore mahine ki shopping 
+ek saath, paise ki bachat 
+bhi ek saath! ≡ƒÆ░ 
+#SundaySpecial #Meerut", 
+contentTheme: "Sale 
+Sunday", day: 22.0, 
+dayOfWeek: "Sunday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Create a bundle for 
+'Mother & Daughter' or 
+'Pack of 6'.", "Step 2: 
+Highlight the big savings 
+(e.g., Save Γé╣200).", 
+"Step 3: Post at 10 AM 
+before they head to the 
+market."], insight: 
+"Sundays are family 
+shopping days in 
+Meerut.", label: "Sunday 
+'Family Pack' Offer", 
+recommended_tools: 
+[{name: "Canva", purpose: 
+"Combo visual", url: 
+"https://canva.com"}], 
+status: "active", 
+time_required: "30 
+minutes"}, 
+{caption_template: "Bra 
+pehenne ke baad side se 
+bulges dikhte hain? ≡ƒÿò 
+It's because of the wrong 
+band size. rk tharak 
+experts se sahi fitting 
+jaaniye. Message us! ≡ƒô▓ 
+#LingerieTips 
+#MeerutWomen", 
+contentTheme: "Motivation 
+Monday", day: 23.0, 
+dayOfWeek: "Monday", 
+difficulty: "Medium", 
+execution_steps: ["Step 
+1: Identify the issue: 
+'Side bulges' from tight 
+bras.", "Step 2: Show the 
+solution: 'Wide-wing 
+bras' available at rk 
+tharak.", "Step 3: 
+Explain the 'Why' in 
+Hinglish."], insight: 
+"Addressing specific pain 
+points builds 
+authority.", label: 
+"Problem-Solution Reel: 
+'Bra Bulges'", 
+recommended_tools: 
+[{name: "Instagram", 
+purpose: "Authority 
+building", url: "https://i
+nstagram.com"}], status: 
+"active", time_required: 
+"45 minutes"}, 
+{caption_template: 
+"Meerut ki ladies ke 
+liye, Meerut ke hisaab se 
+comfort. rk tharak - Lal 
+Kurti wale! ≡ƒôì Hum 
+jaante hain aapki pasand 
+aur zaroorat. ≡ƒÖÅ 
+#MeerutPride 
+#LocalBusiness", 
+contentTheme: 
+"Testimonial Tuesday", 
+day: 24.0, dayOfWeek: 
+"Tuesday", difficulty: 
+"Easy", execution_steps: 
+["Step 1: Write about 
+your 15 years of 
+understanding local 
+tastes.", "Step 2: Post a 
+picture of you or the 
+shop with a landmark in 
+the background.", "Step 
+3: Tag 'Lal Kurti' 
+location."], insight: 
+"Local pride helps 
+conversion.", label: "GMB 
+Post: 'Why Choose Lal 
+Kurti's rk tharak?'", 
+recommended_tools: 
+[{name: "Google My 
+Business", purpose: 
+"Trust building", url: "ht
+tps://business.google.com"
+}], status: "active", 
+time_required: "20 
+minutes"}, 
+{caption_template: 
+"Amazon se tez, Lal Kurti 
+se aapke ghar! ΓÜí 90 
+minutes mein discreet 
+delivery sirf Meerut 
+walon ke liye. Order 
+kariye abhi! ≡ƒô▓≡ƒôª 
+#FastDelivery 
+#MeerutSpeed", 
+contentTheme: "Reel 
+Wednesday", day: 25.0, 
+dayOfWeek: "Wednesday", 
+difficulty: "Medium", 
+execution_steps: ["Step 
+1: Record a video 
+starting a stopwatch.", 
+"Step 2: Show the order 
+received -> Packed -> 
+Delivered via Borzo.", 
+"Step 3: Stop at '90 
+Minutes' or similar."], 
+insight: "Speed is a 
+competitive advantage 
+over Amazon/Ajio.", 
+label: "Discreet Delivery 
+'Speed' Challenge", 
+recommended_tools: 
+[{name: "Borzo/Porter 
+App", purpose: "Local 
+logistics", url: "https://
+borzodelivery.com"}], 
+status: "active", 
+time_required: "60 
+minutes"}, 
+{caption_template: "Raat 
+ki neend hogi ab aur 
+sukoon bhari ≡ƒÆñ Hamara 
+special cotton nighty 
+collection. Swipe left to 
+see all designs! 
+Γ¼à\u{fe0f} 
+#NightwearMeerut 
+#Comfort", contentTheme: 
+"Throwback Thursday", 
+day: 26.0, dayOfWeek: 
+"Thursday", difficulty: 
+"Easy", execution_steps: 
+["Step 1: Take photos of 
+5 different patterns of 
+nighties.", "Step 2: 
+Create an Instagram 
+Carousel.", "Step 3: 
+Mention: 'Ghar mein bhi 
+lagein sundar aur rahein 
+comfortable'."], insight: 
+"Comfort wear/Nightwear 
+has high repeat purchase 
+value.", label: "The 
+'Cotton Nighty' 
+Carousel", 
+recommended_tools: 
+[{name: "Canva", purpose: 
+"Carousel design", url: 
+"https://canva.com"}], 
+status: "active", 
+time_required: "40 
+minutes"}, 
+{caption_template: "Iss 
+weekend bheed se bacho! 
+≡ƒÜ½ rk tharak ka special 
+WhatsApp Pre-order chalu 
+hai. Apna size aur style 
+batao, hum ghar 
+bhijwayenge! ≡ƒôªΓ£¿", 
+contentTheme: "Feature 
+Friday", day: 27.0, 
+dayOfWeek: "Friday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Send a message to the 
+VIP group: 'Going to the 
+market this weekend? 
+Avoid the crowd!'", "Step 
+2: Offer a 'Skip the 
+line' privilege or 'Early 
+Bird' discount.", "Step 
+3: Ask for pre-orders on 
+WhatsApp."], insight: 
+"Pre-empting the weekend 
+shopping list.", label: 
+"Broadcast: 'Weekend 
+Special Prep'", 
+recommended_tools: 
+[{name: "WhatsApp 
+Business", purpose: "VIP 
+engagement", url: 
+"https://whatsapp.com"}], 
+status: "active", 
+time_required: "30 
+minutes"}, 
+{caption_template: "Live 
+fitting session! ≡ƒö┤ 
+Aapke sawaal, rk tharak 
+ke jawaab. Dekhiye fabric 
+aur fitting live! 
+#MeerutLive #rktharak", 
+contentTheme: "Story 
+Saturday", day: 28.0, 
+dayOfWeek: "Saturday", 
+difficulty: "Medium", 
+execution_steps: ["Step 
+1: Go Live on Instagram 
+for 10 minutes.", "Step 
+2: Answer common 
+questions (don't need to 
+show yourself if shy, 
+just show 
+products/fabric).", "Step 
+3: Save the Live as a 
+video."], insight: "Going 
+'Live' builds massive 
+personal connection and 
+clears doubts.", label: 
+"Live Q&A: 'Fitting 
+Problems'", 
+recommended_tools: 
+[{name: "Instagram Live", 
+purpose: "Direct 
+interaction", url: "https:
+//instagram.com"}], 
+status: "active", 
+time_required: "30 
+minutes"}, 
+{caption_template: "STOCK 
+CLEARANCE! ≡ƒôó Aaj ke 
+liye flat 25% off. Ye 
+mauka phir nahi milega. 
+Message fast to grab! ≡ƒÅâ
+\u{200d}ΓÖÇ\u{fe0f}≡ƒÆ¿ 
+#MonthEndSale #Meerut", 
+contentTheme: "Sale 
+Sunday", day: 29.0, 
+dayOfWeek: "Sunday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Pick a few items and 
+offer 'Flat 25% Off'.", 
+"Step 2: Post every 2 
+hours on Status: 'Only 4 
+left', 'Only 2 left'.", 
+"Step 3: Close the month 
+on a high revenue 
+note."], insight: 
+"Urgency 'Today Only' 
+drives massive sales at 
+month-end.", label: "The 
+'Last Day of Month' Stock 
+Clearance", 
+recommended_tools: 
+[{name: "WhatsApp 
+Status", purpose: 
+"Urgency sales", url: 
+"https://whatsapp.com"}], 
+status: "active", 
+time_required: "60 
+minutes"}, 
+{caption_template: "100+ 
+Meerut ki families ne iss 
+mahine rk tharak par 
+bharosa jataya. Thank you 
+everyone! Γ¥ñ\u{fe0f} 
+Agle mahine aap kya naya 
+dekhna chahte hain? 
+Comment karein! ≡ƒæç 
+#Grateful 
+#MeerutBusiness", 
+contentTheme: "Motivation 
+Monday", day: 30.0, 
+dayOfWeek: "Monday", 
+difficulty: "Easy", 
+execution_steps: ["Step 
+1: Share a 'Thank You' 
+post with the number of 
+happy families served 
+this month.", "Step 2: 
+Ask for suggestions for 
+next month's 
+collection.", "Step 3: 
+Calculate total revenue 
+(Target Γé╣1,00,000)."], 
+insight: "Celebrate the 
+wins and keep the 
+momentum going.", label: 
+"Monthly Review & Next 
+Month Teaser", 
+recommended_tools: 
+[{name: "Canva", purpose: 
+"Celebration graphic", 
+url: 
+"https://canva.com"}], 
+status: "active", 
+time_required: "30 
+minutes"}], weeklyThemes: 
+[{budgetNeeded: "Γé╣0", 
+focus: "Setting up 
+digital storefronts", 
+hinglishQuote: "Pehle 
+bharosa banao, phir 
+vyapar apne aap 
+badhega!", keyActivity: 
+"GMB Optimization and 
+WhatsApp Catalog", 
+metric: "10 Google 
+Reviews", theme: 
+"Foundation & Trust", 
+week: 1.0}, 
+{budgetNeeded: "Under 
+Γé╣500", focus: "Teaching 
+customers about fit and 
+fabric", hinglishQuote: 
+"Sahi jaankari hi sahi 
+sales ki chabi hai.", 
+keyActivity: "Size-guide 
+Reel Series", metric: "50 
+New WhatsApp Contacts", 
+theme: "Education is 
+Selling", week: 2.0}, 
+{budgetNeeded: "Under 
+Γé╣2000", focus: 
+"Promoting discreet 
+delivery", hinglishQuote: 
+"Aapki privacy, hamari 
+zimmedari.", keyActivity: 
+"Home-delivery campaign 
+launch", metric: "20 
+Orders via WhatsApp", 
+theme: "The Privacy USP", 
+week: 3.0}, 
+{budgetNeeded: "Under 
+Γé╣500", focus: "Maxing 
+out the Γé╣1L target", 
+hinglishQuote: "Ek khush 
+grahak, das naye grahak 
+laata hai!", keyActivity: 
+"Refer-a-friend 'Paisa 
+Vasool' offer", metric: 
+"Γé╣25,000+ Weekly 
+Revenue", theme: 
+"Conversion & Referrals", 
+week: 4.0}]}, location: 
+"meerut", monthlyRevenue: 
+"100000", userId: "user_3B
+Xmp9e2cWZJS4UlKX5TYDSuzex"
+, whatsapp: "12334"}
+Validator: 
+v.object({address: 
+v.optional(v.string()), 
+brandName: v.string(), 
+businessLinks: v.optional(
+v.array(v.string())), 
+businessVault: v.optional(
+v.object({aiContext: 
+v.string(), images: 
+v.array(v.string())})), 
+category: 
+v.optional(v.string()), 
+completedDays: v.optional(
+v.array(v.float64())), 
+createdAt: v.float64(), 
+lastActivityAt: 
+v.optional(v.float64()), 
+location: v.string(), 
+manualContext: 
+v.optional(v.string()), 
+monthlyRevenue: 
+v.optional(v.string()), 
+userId: v.string(), 
+whatsapp: 
+v.optional(v.string())})

@@ -52,14 +52,19 @@ export const generateTaskContent = internalAction({
     Provide the response strictly in JSON format with the following keys:
     - reel_script: (String) A short script for an Instagram Reel.
     - instagram_caption: (String) A compelling Instagram caption with emojis and hashtags.
-    - gmb_post: (String) A concise update for Google My Business (GMB) highlighting local appeal.`;
+    - gmb_post: (String) A concise update for Google My Business (GMB) highlighting local appeal.
+    - image_prompt: (String) A highly detailed, aesthetic description for generating an image. Describe the ideal visual to accompany this post.`;
 
     try {
       const result = await model.generateContent(aiPrompt);
       const text = result.response.text();
       // Clean up markdown block if present
       const jsonStr = text.replace(/```json\n?|\n?```/g, "").trim();
-      return JSON.parse(jsonStr);
+      const parsed = JSON.parse(jsonStr);
+      if (parsed.image_prompt) {
+        parsed.imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(parsed.image_prompt)}?width=1080&height=1920&nologo=true`;
+      }
+      return parsed;
     } catch (e) {
       console.error("Agent Karya Generation Error:", e);
       return {

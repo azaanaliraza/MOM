@@ -1,4 +1,5 @@
 "use node";
+// Sync Trigger: 2026-04-05T02:08:45
 
 import { internalAction, action } from "./_generated/server";
 import { internal } from "./_generated/api";
@@ -14,17 +15,65 @@ export const postToSocial = action({
     imageUrl: v.optional(v.string())
   },
   handler: async (ctx, args) => {
-    const composio = new ComposioToolSet({ apiKey: process.env.COMPOSIO_API_KEY! });
+    try {
+      const composio = new ComposioToolSet({ apiKey: process.env.COMPOSIO_API_KEY! });
+      
+      if (args.platform === "instagram") {
+        console.log(`[MOM] Starting Instagram post orchestration for ${args.clerkId} using 'me' identity`);
+        
+        // 1. Create Media Container
+        const container: any = await composio.executeAction({
+          action: "INSTAGRAM_CREATE_MEDIA_CONTAINER",
+          params: {
+            ig_user_id: "me",
+            caption: args.content,
+            image_url: args.imageUrl
+          },
+          entityId: args.clerkId
+        });
+        const creationId = container?.data?.id || container?.id;
+        if (!creationId) {
+          console.error("[MOM] Container Creation Failed:", container);
+          throw new Error("Failed to create media container. Ensure your Instagram account is a Business/Creator account and public media URL is accessible.");
+        }
 
-    await composio.executeAction({
-      action: args.platform === "instagram" ? "INSTAGRAM_POST" : "GOOGLEBUSINESSPROFILE_CREATE_POST",
-      params: {
-        text: args.content,
-        media_url: args.imageUrl
-      },
-      entityId: args.clerkId
-    });
+        // 2. Publish
+        console.log(`[MOM] Publishing IG container ${creationId}`);
+        await composio.executeAction({
+          action: "INSTAGRAM_CREATE_POST",
+          params: {
+            ig_user_id: "me",
+            creation_id: creationId
+          },
+          entityId: args.clerkId
+        });
+      } else {
+        // GMB implementation
+        await composio.executeAction({
+          action: "GOOGLEBUSINESSPROFILE_CREATE_POST",
+          params: {
+            summary: args.content,
+            media: args.imageUrl ? [{ sourceUrl: args.imageUrl }] : []
+          },
+          entityId: args.clerkId
+        });
+      }
+      return { success: true };
+    } catch (error: any) {
+      console.error("[MOM] Composio Post Failure:", error);
+      const errorMsg = error?.message || (typeof error === 'string' ? error : JSON.stringify(error)) || "Unknown error";
+      throw new Error(`Social post failed: ${errorMsg}`);
+    }
   }
+});
+
+export const persistUrlToStorage = action({
+  args: { url: v.string() },
+  handler: async (ctx, args) => {
+    const response = await fetch(args.url);
+    const blob = await response.blob();
+    return await ctx.storage.store(blob);
+  },
 });
 
 export const testCloud = action({
