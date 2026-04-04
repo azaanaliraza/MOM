@@ -17,9 +17,10 @@ export default function AdvancedDashboard() {
   const allRoadmaps = useQuery(api.roadmaps.listMyRoadmaps, user ? { userId: user.id } : "skip");
   const dbUser = useQuery(api.users.getUser, user ? { clerkId: user.id } : "skip");
 
-  // 3. State for "Selected" roadmap
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'strategy' | 'karya' | 'connect'>('strategy');
+
+  const fullRoadmap = useQuery(api.roadmaps.getRoadmap, selectedId ? { roadmapId: selectedId as any } : "skip");
 
   // Set the first one as default if none selected
   useEffect(() => {
@@ -28,13 +29,14 @@ export default function AdvancedDashboard() {
     }
   }, [allRoadmaps, selectedId]);
 
-  const roadmap = allRoadmaps?.find(r => r._id === selectedId);
   const [activeDay, setActiveDay] = useState<number>(1);
   const toggleTask = useMutation(api.roadmaps.toggleTaskCompletion);
 
-  if (allRoadmaps === undefined || dbUser === undefined) return <div className="h-screen flex items-center justify-center bg-surface transition-all duration-1000"><div className="node-pulse w-12 h-12 bg-indigo-600/20 rounded-full" /></div>;
+  if (allRoadmaps === undefined || dbUser === undefined || (selectedId && fullRoadmap === undefined)) {
+    return <div className="h-screen flex items-center justify-center bg-surface transition-all duration-1000"><div className="node-pulse w-12 h-12 bg-indigo-600/20 rounded-full" /></div>;
+  }
 
-  if (allRoadmaps.length === 0 || !roadmap) return (
+  if (allRoadmaps.length === 0 || !fullRoadmap) return (
     <div className="h-screen flex flex-col items-center justify-center bg-surface gap-6 animate-in fade-in zoom-in duration-700">
       <div className="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center">
         <Zap size={40} className="text-indigo-600" />
@@ -47,13 +49,13 @@ export default function AdvancedDashboard() {
     </div>
   );
 
-  const d = roadmap.data;
+  const d = fullRoadmap.data || {};
   const thirtyDayPlan = d.thirtyDayPlan || d.roadmap || [];
-  const brand = d.brand || { name: roadmap.brandName, city: roadmap.location, tagline: "Marketing Engine Active" };
+  const brand = d.brand || { name: fullRoadmap.brandName, city: fullRoadmap.location, tagline: "Marketing Engine Active" };
   const weeklyThemes = d.weeklyThemes || d.weekly_intelligence || [];
 
   const selectedDayData = thirtyDayPlan.find((r: any) => r.day === activeDay) || thirtyDayPlan[0];
-  const completedDays = roadmap.completedDays || [];
+  const completedDays = fullRoadmap.completedDays || [];
   const completedCount = completedDays.length;
 
   return (
@@ -256,10 +258,20 @@ export default function AdvancedDashboard() {
                           </div>
                         </div>
 
-                        {/* MARK AS DONE BUTTON */}
                         <div className="pt-4">
                           <button 
-                            onClick={() => toggleTask({ roadmapId: roadmap._id, dayNumber: activeDay })}
+                            onClick={() => {
+                              const isCurrentlyDone = completedDays.includes(activeDay);
+                              toggleTask({ roadmapId: fullRoadmap._id, dayNumber: activeDay });
+                              
+                              if (!isCurrentlyDone) {
+                                let nextDay = activeDay + 1;
+                                while (nextDay <= 30 && completedDays.includes(nextDay)) {
+                                  nextDay++;
+                                }
+                                if (nextDay <= 30) setActiveDay(nextDay);
+                              }
+                            }}
                             className={`w-full py-8 rounded-[2rem] flex items-center justify-center gap-4 transition-all active:scale-95 shadow-xl cursor-pointer ${
                               completedDays.includes(activeDay) 
                                 ? 'bg-green-500 text-white shadow-green-200 hover:bg-green-600' 
@@ -368,7 +380,7 @@ export default function AdvancedDashboard() {
             >
               <KaryaTab 
                 dayTask={selectedDayData?.label} 
-                roadmapId={roadmap._id}
+                roadmapId={fullRoadmap._id}
                 roadmapData={thirtyDayPlan}
                 currentDay={activeDay}
               />
@@ -390,14 +402,14 @@ export default function AdvancedDashboard() {
       </main>
 
       <ChatAgent
-        roadmapId={roadmap._id}
+        roadmapId={fullRoadmap._id}
         userId={user?.id}
         businessData={{
-          shopName: roadmap.brandName,
-          city: roadmap.location,
-          address: roadmap.address,
-          monthlyRevenue: roadmap.monthlyRevenue,
-          category: roadmap.category
+          shopName: fullRoadmap.brandName,
+          city: fullRoadmap.location,
+          address: fullRoadmap.address,
+          monthlyRevenue: fullRoadmap.monthlyRevenue,
+          category: fullRoadmap.category
         }}
       />
     </div>

@@ -1,6 +1,6 @@
 "use node";
 
-import { internalAction, internalQuery } from "./_generated/server";
+import { internalAction, internalQuery, internalMutation } from "./_generated/server";
 import { internal, api } from "./_generated/api";
 import { v } from "convex/values";
 import { ComposioToolSet } from "composio-core";
@@ -52,7 +52,7 @@ export const pushMorningTasks = internalAction({
               if (isInstaConnected) {
                 await ctx.runMutation(api.roadmaps.addPendingApproval, {
                   roadmapId: roadmap._id,
-                  item: { id: Math.random().toString(36).substr(2, 9), type: "instagram_reel", content: aiContent.reel_script || aiContent.instagram_caption, createdAt: Date.now() }
+                  item: { id: Math.random().toString(36).substr(2, 9), type: "instagram_reel", content: aiContent.reel_script || aiContent.instagram_caption, imageUrl: aiContent.imageUrl, createdAt: Date.now() }
                 });
                 approvalMsg += `\n\n📸 *Instagram Reel Ready*\nScript: ${aiContent.reel_script?.substring(0, 50)}...\n👉 Approve: ${process.env.NEXT_PUBLIC_SITE_URL}/dashboard?tab=connect`;
               }
@@ -60,7 +60,7 @@ export const pushMorningTasks = internalAction({
               if (isGMBConnected) {
                 await ctx.runMutation(api.roadmaps.addPendingApproval, {
                   roadmapId: roadmap._id,
-                  item: { id: Math.random().toString(36).substr(2, 9), type: "gmb_post", content: aiContent.gmb_post, createdAt: Date.now() }
+                  item: { id: Math.random().toString(36).substr(2, 9), type: "gmb_post", content: aiContent.gmb_post, imageUrl: aiContent.imageUrl, createdAt: Date.now() }
                 });
                 approvalMsg += `\n\n📍 *GMB Update Ready*\nPost: ${aiContent.gmb_post?.substring(0, 50)}...`;
               }
@@ -82,3 +82,5 @@ export const pushMorningTasks = internalAction({
     }
   },
 });
+
+

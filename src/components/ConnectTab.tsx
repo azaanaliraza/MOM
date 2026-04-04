@@ -112,9 +112,69 @@ export default function ConnectTab() {
               </div>
             </div>
 
-            <div className="p-8 bg-stone-50 rounded-3xl border border-stone-100 italic text-stone-600 leading-relaxed font-bold">
-               "{confirming.content}"
-            </div>
+            {confirming.type.includes('instagram') ? (
+               <div className="mx-auto w-[280px] bg-white border border-stone-200 rounded-[2.5rem] p-4 shadow-xl shadow-stone-200/50 flex flex-col gap-3">
+                 <div className="flex items-center gap-2 mb-1">
+                   <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 p-[2px]">
+                     <div className="w-full h-full bg-white rounded-full border-2 border-white flex items-center justify-center">
+                       <Zap size={10} className="text-pink-500" />
+                     </div>
+                   </div>
+                   <div className="text-[11px] font-bold text-stone-900">Your Business</div>
+                 </div>
+                 <div className="w-full h-[340px] bg-stone-100 rounded-2xl flex flex-col items-center justify-center relative overflow-hidden group">
+                   {confirming.imageUrl && (
+                     <img src={confirming.imageUrl} className="absolute inset-0 w-full h-full object-cover z-0" alt="Generated post" />
+                   )}
+                   {confirming.type === 'instagram_reel' ? (
+                     <div className="absolute inset-0 bg-stone-900/20 flex flex-col items-center justify-center backdrop-blur-[2px] z-10 transition-all group-hover:bg-stone-900/40">
+                       <div className="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center shadow-lg border border-white backdrop-blur-md cursor-pointer hover:scale-110 transition-transform">
+                         <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[12px] border-l-stone-900 border-b-[8px] border-b-transparent ml-1" />
+                       </div>
+                       <p className="mt-3 text-[10px] font-black tracking-widest text-white uppercase shadow-sm">Review AI Reel</p>
+                     </div>
+                   ) : confirming.imageUrl ? null : (
+                     <div className="text-stone-400 font-bold uppercase tracking-widest text-[10px] z-10 relative">AI Generated Image</div>
+                   )}
+                 </div>
+                 <div className="flex gap-3 text-stone-900 px-1 pt-1">
+                    <div className="hover:opacity-50 cursor-pointer"><p className="text-lg">❤️</p></div>
+                    <div className="hover:opacity-50 cursor-pointer"><p className="text-lg">💬</p></div>
+                    <div className="hover:opacity-50 cursor-pointer"><p className="text-lg">✈️</p></div>
+                 </div>
+                 <div className="px-1 max-h-24 overflow-y-auto custom-scrollbar">
+                   <p className="text-[11px] text-stone-800 leading-relaxed font-medium">
+                     <span className="font-bold mr-1">Your Business</span>
+                     {confirming.content}
+                   </p>
+                 </div>
+               </div>
+             ) : confirming.type === 'gmb_post' ? (
+               <div className="w-full bg-white border border-stone-200 rounded-3xl p-5 shadow-xl shadow-stone-200/50">
+                 <div className="flex gap-4">
+                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-black text-lg">MB</div>
+                   <div className="flex-1">
+                     <p className="font-bold text-stone-900 text-sm">Your Local Business</p>
+                     <p className="text-[10px] text-stone-400 font-medium">Just now • Google Updates</p>
+                     <div className="mt-4 pb-2">
+                       <p className="text-sm text-stone-800 leading-relaxed whitespace-pre-wrap">{confirming.content}</p>
+                     </div>
+                     <div className="w-full h-40 bg-stone-100 rounded-2xl flex items-center justify-center mt-3 mb-2 border border-stone-200 overflow-hidden relative">
+                       {confirming.imageUrl ? (
+                         <img src={confirming.imageUrl} className="absolute inset-0 w-full h-full object-cover" alt="Generated GMB preview" />
+                       ) : (
+                         <p className="text-[10px] font-black tracking-widest text-stone-400 uppercase relative z-10">Promo Image Preview</p>
+                       )}
+                     </div>
+                     <button className="w-fit mt-3 px-4 py-1.5 bg-blue-50 text-blue-600 font-bold text-[11px] rounded-full uppercase tracking-wider hover:bg-blue-100 transition-colors">Learn More</button>
+                   </div>
+                 </div>
+               </div>
+             ) : (
+               <div className="p-8 bg-stone-50 rounded-3xl border border-stone-100 italic text-stone-600 leading-relaxed font-bold">
+                  "{confirming.content}"
+               </div>
+             )}
 
             <div className="flex flex-col gap-3">
               <button 

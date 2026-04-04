@@ -34,25 +34,48 @@ export default defineSchema({
     monthlyRevenue: v.optional(v.string()),
     whatsapp: v.optional(v.string()),
     businessLinks: v.optional(v.array(v.string())),
-    // 🆕 Vision Vault is now specific to THIS roadmap/business
     businessVault: v.optional(v.object({
-      images: v.array(v.string()), // Storage IDs of uploaded photos for this business
-      aiContext: v.string(),       // The specific memory for this business
+      images: v.array(v.string()), 
+      aiContext: v.string(),       
     })),
-    // 🆕 Manual context provided by the user (sale info, special notes etc.)
     manualContext: v.optional(v.string()),
-    data: v.any(), 
     createdAt: v.number(),
     completedDays: v.optional(v.array(v.number())),
     lastActivityAt: v.optional(v.number()),
-    pendingApprovals: v.optional(v.array(v.object({
-      id: v.string(),
-      type: v.union(v.literal("instagram_reel"), v.literal("instagram_post"), v.literal("gmb_post")),
-      content: v.string(),
-      imageUrl: v.optional(v.string()),
-      createdAt: v.number(),
-    }))),
   }).index("by_user", ["userId"]),
+
+  roadmap_data: defineTable({
+    roadmapId: v.id("roadmaps"),
+    content: v.any(),
+  }).index("by_roadmap_data", ["roadmapId"]),
+
+  approvals: defineTable({
+    roadmapId: v.id("roadmaps"),
+    itemId: v.string(),
+    type: v.union(v.literal("instagram_reel"), v.literal("instagram_post"), v.literal("gmb_post")),
+    content: v.string(),
+    imageUrl: v.optional(v.string()),
+    createdAt: v.number(),
+  }).index("by_approvals_roadmap", ["roadmapId"]).index("by_itemId", ["itemId"]),
+
+  karya_outputs: defineTable({
+    roadmapId: v.id("roadmaps"),
+    day: v.number(),
+    type: v.string(), // "poster", "reel", "guide"
+    posterUrl: v.optional(v.string()),
+    reelUrl: v.optional(v.string()),
+    posterStorageId: v.optional(v.string()),
+    reelStorageId: v.optional(v.string()),
+    imagePrompt: v.optional(v.string()),
+    videoPrompt: v.optional(v.string()),
+    genId: v.string(), // The specific generation ID
+    createdAt: v.number(),
+  }).index("by_karya_roadmap", ["roadmapId"]).index("by_genId", ["genId"]),
+
+  karya_reports: defineTable({
+    outputId: v.string(), // Links to karya_outputs.genId
+    report: v.string(),
+  }).index("by_output_id", ["outputId"]),
   
   messages: defineTable({
     roadmapId: v.id("roadmaps"),
@@ -60,5 +83,5 @@ export default defineSchema({
     role: v.union(v.literal("user"), v.literal("assistant")),
     content: v.string(),
     createdAt: v.number(),
-  }).index("by_roadmap", ["roadmapId"]),
+  }).index("by_messages_roadmap", ["roadmapId"]),
 });

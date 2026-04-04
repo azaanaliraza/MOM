@@ -72,7 +72,16 @@ export const getUserEmail = internalQuery({
 export const getAllRoadmapsData = internalQuery({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("roadmaps").collect();
+    const roadmaps = await ctx.db.query("roadmaps").collect();
+    const joined = [];
+    for (const r of roadmaps) {
+      const dataDoc = await ctx.db
+        .query("roadmap_data")
+        .withIndex("by_roadmap_data", (q) => q.eq("roadmapId", r._id))
+        .unique();
+      joined.push({ ...r, data: dataDoc?.content });
+    }
+    return joined;
   },
 });
 

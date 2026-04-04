@@ -6,7 +6,7 @@ export const list = query({
   handler: async (ctx, args) => {
     return await ctx.db
       .query("messages")
-      .withIndex("by_roadmap", (q) => q.eq("roadmapId", args.roadmapId))
+      .withIndex("by_messages_roadmap", (q) => q.eq("roadmapId", args.roadmapId))
       .collect();
   },
 });
