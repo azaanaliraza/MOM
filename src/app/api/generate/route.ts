@@ -24,7 +24,11 @@ export async function POST(req: Request) {
     }
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-3-flash-preview",
+      model: "gemini-3-flash-preview", // Extremely fast and stable for large JSON
+      generationConfig: {
+        maxOutputTokens: 8192,
+        responseMimeType: "application/json",
+      }
     });
 
     const businessDescription = `

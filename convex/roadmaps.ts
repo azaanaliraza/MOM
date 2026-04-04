@@ -1,5 +1,13 @@
 import { mutation, query } from "./_generated/server";
+import { internal } from "./_generated/api";
 import { v } from "convex/values";
+
+export const debugGetAll = query({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db.query("roadmaps").order("desc").take(5);
+  }
+});
 
 export const createRoadmap = mutation({
   args: {
@@ -53,7 +61,7 @@ export const createRoadmap = mutation({
     }
 
     // 4. SAVE THE ROADMAP
-    return await ctx.db.insert("roadmaps", {
+    const roadmapId = await ctx.db.insert("roadmaps", {
       userId: args.userId,
       brandName: args.brandName,
       location: args.location,
@@ -61,10 +69,20 @@ export const createRoadmap = mutation({
       category: args.category,
       monthlyRevenue: args.monthlyRevenue,
       whatsapp: args.whatsapp,
-      businessLinks: args.businessLinks, // 🆕 Pass businessLinks
+      businessLinks: args.businessLinks,
       data: args.data,
       createdAt: Date.now(),
     });
+
+    // 5. SEND WELCOME WHATSAPP MESSAGE
+    if (args.whatsapp) {
+      await ctx.scheduler.runAfter(0, internal.whatsapp.sendWelcomeMessage, {
+        phoneNumber: args.whatsapp,
+        brandName: args.brandName
+      });
+    }
+
+    return roadmapId;
   },
 });
 
