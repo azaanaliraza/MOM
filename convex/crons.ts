@@ -43,7 +43,7 @@ export const checkAndNudge = internalAction({
       await ctx.runQuery(internal.crons.findInactiveUsers, {});
 
     for (const { userId, brandName } of inactiveUsers) {
-      // Look up the user's email via the users table
+      // Look up the user's data via the users table
       const user: any = await ctx.runQuery(internal.crons.getUserEmail, {
         clerkId: userId,
       });
@@ -51,6 +51,13 @@ export const checkAndNudge = internalAction({
       if (user?.email && user.email !== "pending-sync") {
         await ctx.runAction(internal.email.sendNudgeEmail, {
           email: user.email,
+          brandName,
+        });
+      }
+
+      if (user?.phoneNumber) {
+        await ctx.runAction(internal.whatsapp.sendWhatsAppNudge, {
+          phoneNumber: user.phoneNumber,
           brandName,
         });
       }
@@ -69,6 +76,83 @@ export const getUserEmail = internalQuery({
   },
 });
 
+// Helper query to get all roadmaps
+export const getAllRoadmapsData = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db.query("roadmaps").collect();
+  },
+});
+
+// Action for 8 AM (IST) Morning Task Push
+export const pushMorningTasks = internalAction({
+  args: {},
+  handler: async (ctx) => {
+    const roadmaps: any = await ctx.runQuery(internal.crons.getAllRoadmapsData, {});
+
+    for (const roadmap of roadmaps) {
+      if (!roadmap.data?.thirtyDayPlan) continue;
+      
+      // Look up user's phone number
+      const user: any = await ctx.runQuery(internal.crons.getUserEmail, { clerkId: roadmap.userId });
+      const phone = roadmap.whatsapp || user?.phoneNumber;
+      
+      if (!phone) continue;
+
+      // Calculate Current Day (Day 1 starts on createdAt)
+      const daysSinceCreation = Math.floor((Date.now() - roadmap.createdAt) / (1000 * 60 * 60 * 24));
+      const currentDayNumber = daysSinceCreation + 1;
+
+      // Find the specific task for today out of the 30-day plan
+      const todaysTask = roadmap.data.thirtyDayPlan.find((d: any) => d.day === currentDayNumber);
+      
+      if (todaysTask) {
+        await ctx.runAction(internal.whatsapp.sendDailyTask, {
+          phoneNumber: phone,
+          brandName: roadmap.brandName,
+          currentDay: currentDayNumber,
+          taskTitle: todaysTask.label
+        });
+      }
+    }
+  },
+});
+
+// Action for 8 PM (IST) Evening Incompletion Reminder
+export const pushEveningReminders = internalAction({
+  args: {},
+  handler: async (ctx) => {
+    const roadmaps: any = await ctx.runQuery(internal.crons.getAllRoadmapsData, {});
+
+    for (const roadmap of roadmaps) {
+      if (!roadmap.data?.thirtyDayPlan) continue;
+      
+      const user: any = await ctx.runQuery(internal.crons.getUserEmail, { clerkId: roadmap.userId });
+      const phone = roadmap.whatsapp || user?.phoneNumber;
+      
+      if (!phone) continue;
+
+      const daysSinceCreation = Math.floor((Date.now() - roadmap.createdAt) / (1000 * 60 * 60 * 24));
+      const currentDayNumber = daysSinceCreation + 1;
+      
+      // Check if they completed today's task
+      const isDone = roadmap.completedDays?.includes(currentDayNumber);
+      if (isDone) continue; // If done, skip!
+
+      const todaysTask = roadmap.data.thirtyDayPlan.find((d: any) => d.day === currentDayNumber);
+      
+      if (todaysTask) {
+        await ctx.runAction(internal.whatsapp.sendIncompleteReminder, {
+          phoneNumber: phone,
+          brandName: roadmap.brandName,
+          currentDay: currentDayNumber,
+          taskTitle: todaysTask.label
+        });
+      }
+    }
+  },
+});
+
 const crons = cronJobs();
 
 // Run the inactivity check every 24 hours
@@ -76,6 +160,22 @@ crons.interval(
   "daily inactivity nudge",
   { hours: 24 },
   internal.crons.checkAndNudge,
+  {}
+);
+
+// Run Morning Tasks at 8:00 AM IST (which is 2:30 AM UTC)
+crons.daily(
+  "morning whatsapp task push",
+  { hourUTC: 2, minuteUTC: 30 },
+  internal.crons.pushMorningTasks,
+  {}
+);
+
+// Run Evening Reminders at 8:00 PM IST (which is 14:30 PM UTC)
+crons.daily(
+  "evening whatsapp task reminder",
+  { hourUTC: 14, minuteUTC: 30 },
+  internal.crons.pushEveningReminders,
   {}
 );
 

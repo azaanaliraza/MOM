@@ -15,6 +15,7 @@ import type * as migrate from "../migrate.js";
 import type * as roadmaps from "../roadmaps.js";
 import type * as users from "../users.js";
 import type * as vision from "../vision.js";
+import type * as whatsapp from "../whatsapp.js";
 
 import type {
   ApiFromModules,
@@ -30,6 +31,7 @@ declare const fullApi: ApiFromModules<{
   roadmaps: typeof roadmaps;
   users: typeof users;
   vision: typeof vision;
+  whatsapp: typeof whatsapp;
 }>;
 
 /**

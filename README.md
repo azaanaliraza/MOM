@@ -104,8 +104,8 @@ MOM/
 ### 1. Clone & Install
 
 ```bash
-git clone https://github.com/ritikteotia/Vigyapan-ai.git
-cd Vigyapan-ai
+git clone https://github.com/azaanaliraza /mom.git
+cd mom
 bun install
 ```
 

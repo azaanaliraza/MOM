@@ -169,8 +169,13 @@ export default function OnboardingForm({ initialPrompt, userId, onClose }: { ini
 
         <button 
           onClick={handleNext}
-          disabled={loading}
-          className="w-full py-6 bg-stone-900 text-white rounded-2xl font-bold text-sm tracking-widest hover:bg-stone-800 transition-all flex items-center justify-center gap-4 shadow-xl"
+          disabled={
+            loading || 
+            (step === 1 && !formData.shopName) || 
+            (step === 2 && (!formData.city || !formData.address)) || 
+            (step === 3 && (!formData.monthlyRevenue || !formData.whatsapp))
+          }
+          className="w-full py-6 bg-stone-900 text-white rounded-2xl font-bold text-sm tracking-widest hover:bg-stone-800 transition-all flex items-center justify-center gap-4 shadow-xl disabled:opacity-50"
         >
           {loading ? (
              <>
