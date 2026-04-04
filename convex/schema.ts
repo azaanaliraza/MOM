@@ -45,6 +45,13 @@ export default defineSchema({
     createdAt: v.number(),
     completedDays: v.optional(v.array(v.number())),
     lastActivityAt: v.optional(v.number()),
+    pendingApprovals: v.optional(v.array(v.object({
+      id: v.string(),
+      type: v.union(v.literal("instagram_reel"), v.literal("instagram_post"), v.literal("gmb_post")),
+      content: v.string(),
+      imageUrl: v.optional(v.string()),
+      createdAt: v.number(),
+    }))),
   }).index("by_user", ["userId"]),
   
   messages: defineTable({

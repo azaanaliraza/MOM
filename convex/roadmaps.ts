@@ -74,12 +74,32 @@ export const createRoadmap = mutation({
       createdAt: Date.now(),
     });
 
-    // 5. SEND WELCOME WHATSAPP MESSAGE
+    // 5. SEND WELCOME & DAY 1 TASK WHATSAPP MESSAGE
     if (args.whatsapp) {
       await ctx.scheduler.runAfter(0, internal.whatsapp.sendWelcomeMessage, {
         phoneNumber: args.whatsapp,
         brandName: args.brandName
       });
+
+      const plan = (args.data as any).thirtyDayPlan || (args.data as any).roadmap || [];
+      console.log(`[WhatsApp] Plan found with ${plan.length} items`);
+      
+      const day1 = plan.find((d: any) => {
+        const dMatch = String(d.day).match(/\d+/);
+        return dMatch && dMatch[0] === "1";
+      });
+
+      if (day1) {
+        console.log(`[WhatsApp] Scheduling Day 1 task: "${day1.label}" for user: ${args.whatsapp}`);
+        await ctx.scheduler.runAfter(5000, internal.whatsapp.sendDailyTask, {
+          phoneNumber: args.whatsapp,
+          brandName: args.brandName,
+          currentDay: 1,
+          taskTitle: day1.label
+        });
+      } else {
+        console.warn("[WhatsApp] Day 1 task NOT found. Sample item:", plan[0]);
+      }
     }
 
     return roadmapId;
@@ -156,3 +176,36 @@ export const toggleTaskCompletion = mutation({
     });
   },
 });
+
+export const addPendingApproval = mutation({
+  args: { 
+    roadmapId: v.id("roadmaps"), 
+    item: v.object({
+      id: v.string(),
+      type: v.union(v.literal("instagram_reel"), v.literal("instagram_post"), v.literal("gmb_post")),
+      content: v.string(),
+      imageUrl: v.optional(v.string()),
+      createdAt: v.number()
+    })
+  },
+  handler: async (ctx, args) => {
+    const roadmap = await ctx.db.get(args.roadmapId);
+    if (!roadmap) throw new Error("Roadmap not found");
+    const existing = roadmap.pendingApprovals || [];
+    await ctx.db.patch(args.roadmapId, {
+      pendingApprovals: [...existing, args.item]
+    });
+  },
+});
+
+export const clearPendingApproval = mutation({
+  args: { roadmapId: v.id("roadmaps"), itemId: v.string() },
+  handler: async (ctx, args) => {
+    const roadmap = await ctx.db.get(args.roadmapId);
+    if (!roadmap) throw new Error("Roadmap not found");
+    const existing = roadmap.pendingApprovals || [];
+    await ctx.db.patch(args.roadmapId, {
+      pendingApprovals: existing.filter(i => i.id !== args.itemId)
+    });
+  },
+});
