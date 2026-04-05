@@ -44,8 +44,7 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
   const saveKaryaOutput = useMutation(api.roadmaps.saveKaryaOutput);
   const updateKaryaAsset = useMutation(api.roadmaps.updateKaryaAsset);
   const postToSocial = useAction(api.whatsapp.postToSocial);
-  const persistUrl = useAction(api.whatsapp.persistUrlToStorage);
-  const uploadBase64 = useAction(api.whatsapp.uploadBase64ToStorage);
+  const generateUploadUrl = useMutation(api.users.generateUploadUrl);
   const [outputId, setOutputId] = useState<string | null>(null);
   const [instagramCaption, setInstagramCaption] = useState<string | null>(null);
 
@@ -210,18 +209,38 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
     if (!user) return;
     setPosting(contentType);
     try {
-      // Upload the actual generated image to Convex storage to get a public URL
-      // This ensures the EXACT same image shown on dashboard is posted
-      let publicImageUrl: string | undefined;
+      let publicStorageId: string | undefined;
       const imageData = contentType === "poster" ? generatedPoster : generatedReel;
       
       if (imageData?.startsWith("data:")) {
-        // Base64 image — upload to Convex storage for a public URL
-        const { url } = await uploadBase64({ base64Data: imageData });
-        publicImageUrl = url;
-      } else if (imageData?.startsWith("http")) {
-        // Already a public URL
-        publicImageUrl = imageData;
+        // Convert to JPEG via Canvas to guarantee Instagram compatibility
+        // Instagram rejects WebP — only JPEG and PNG are accepted
+        const img = new Image();
+        const loadedBlob: Blob = await new Promise((resolve, reject) => {
+          img.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            const ctx = canvas.getContext("2d")!;
+            ctx.drawImage(img, 0, 0);
+            canvas.toBlob(
+              (b) => b ? resolve(b) : reject(new Error("Canvas conversion failed")),
+              "image/jpeg",
+              0.92
+            );
+          };
+          img.onerror = () => reject(new Error("Image load failed"));
+          img.src = imageData;
+        });
+
+        const uploadUrl = await generateUploadUrl();
+        const uploadRes = await fetch(uploadUrl, {
+          method: "POST",
+          headers: { "Content-Type": "image/jpeg" },
+          body: loadedBlob,
+        });
+        const json = await uploadRes.json();
+        publicStorageId = json.storageId;
       }
 
       // Use AI-generated caption, NOT the raw task report
@@ -231,7 +250,8 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
         clerkId: user.id,
         platform,
         content: caption.substring(0, 2200),
-        imageUrl: publicImageUrl
+        storageId: publicStorageId,
+        imageUrl: imageData?.startsWith("http") ? imageData : undefined
       });
       alert(`✅ Posted to ${platform === 'instagram' ? 'Instagram' : 'Google Business'} successfully!`);
     } catch (err: any) {

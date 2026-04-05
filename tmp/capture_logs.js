@@ -8,8 +8,8 @@ child.stdout.on('data', (data) => { output += data; });
 child.stderr.on('data', (data) => { output += data; });
 
 setTimeout(() => {
-  fs.writeFileSync('./tmp/logs.txt', output);
-  console.log('Saved logs');
+  fs.writeFileSync('./tmp/logs2.txt', output);
+  console.log('Saved to logs2.txt');
   child.kill();
   process.exit(0);
 }, 8000);
