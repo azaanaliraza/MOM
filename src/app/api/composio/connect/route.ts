@@ -27,18 +27,40 @@ export async function POST(req: NextRequest) {
     const entity = await composio.getEntity(clerkId);
     console.log(`[Composio] Initiating connection for ${platform} with redirect: ${redirectUrl}`);
 
-    // Create a connection URL for the platform
-    const connection = await entity.initiateConnection({
-      appName: platform.toLowerCase(), 
+    // Use the direct REST API for reliability
+    const initiateUrl = 'https://backend.composio.dev/api/v2/connectedAccounts/initiateConnection';
+    const body: any = {
+      appName: platform.toLowerCase(),
+      entityId: clerkId,
       redirectUri: redirectUrl,
-      integrationId: configId, // ✅ Map the specific config if provided
-      config: {
-        redirectUrl: redirectUrl,
-      }
-    } as any);
+    };
 
-    console.log("[Composio] Connection Response:", JSON.stringify(connection, null, 2));
-    return NextResponse.json({ url: connection.redirectUrl || (connection as any).connectionUrl });
+    if (configId?.startsWith("ac_")) {
+      body.authConfigId = configId;
+    } else if (configId) {
+      body.integrationId = configId;
+    }
+
+    console.log(`[Composio] Sending REST → ${initiateUrl} body=${JSON.stringify(body)}`);
+
+    const res = await fetch(initiateUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": process.env.COMPOSIO_API_KEY as string,
+      },
+      body: JSON.stringify(body),
+    });
+
+    const result = await res.json();
+    console.log("[Composio] Connection Response:", JSON.stringify(result, null, 2));
+
+    if (!res.ok) {
+      throw new Error(`Composio API Error: ${JSON.stringify(result)}`);
+    }
+
+    const redirectUrlToUse = result.connectionResponse?.redirectUrl || result.redirectUrl || result.connectionUrl;
+    return NextResponse.json({ url: redirectUrlToUse });
   } catch (error: any) {
     console.error("[Composio] Connection Error:", error);
     return NextResponse.json({ 

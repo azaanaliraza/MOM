@@ -35,18 +35,33 @@ export const extractContext = action({
 
     const prompt = "Extract every detail from this image: product names, prices, special offers, and the overall vibe. Format it as a structured summary for a marketing agent.";
 
-    const result = await model.generateContent([
-      prompt,
-      {
-        inlineData: {
-          data: arrayBufferToBase64(imageData),
-          mimeType: args.mimeType,
+    let result;
+    const base64Data = arrayBufferToBase64(imageData);
+    
+    try {
+      result = await model.generateContent([
+        prompt,
+        {
+          inlineData: {
+            data: base64Data,
+            mimeType: args.mimeType,
+          },
         },
-      },
-    ]);
+      ]);
+    } catch (e: any) {
+      if (e.message?.includes("429") || e.message?.includes("quota")) {
+        console.warn("[MOM Vision] Gemini 3 quota hit. Falling back to Gemini 2.5.");
+        const fallbackModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        result = await fallbackModel.generateContent([
+          prompt,
+          { inlineData: { data: base64Data, mimeType: args.mimeType } },
+        ]);
+      } else {
+        throw e;
+      }
+    }
 
     const context = result.response.text();
-
     return { context };
   },
 });
