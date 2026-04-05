@@ -24,11 +24,10 @@ export async function POST(req: Request) {
     }
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-3-flash-preview", // Reverted to user's preferred stable version
+      model: "gemini-2.5-flash", // Using stable version for robust roadmap generation
       tools: [{ googleSearch: {} } as any],
       generationConfig: {
         maxOutputTokens: 16384,
-        responseMimeType: "application/json",
       }
     });
 

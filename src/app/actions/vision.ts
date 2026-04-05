@@ -16,15 +16,29 @@ export async function processBusinessImage(base64Image: string, isPremium: boole
 
     const prompt = "Extract product names, prices, and business info from this image. Format as a list.";
 
-    const result = await model.generateContent([
-      {
-        inlineData: {
-          data: base64Data,
-          mimeType: "image/jpeg", // Flash handles jpeg/png fine even if label is generic
+    let result;
+    try {
+      result = await model.generateContent([
+        {
+          inlineData: {
+            data: base64Data,
+            mimeType: "image/jpeg",
+          },
         },
-      },
-      prompt,
-    ]);
+        prompt,
+      ]);
+    } catch (e: any) {
+      if (e.message?.includes("429") || e.message?.includes("quota")) {
+        console.warn("[MOM Vision] Gemini 3 quota hit. Falling back to Gemini 2.5.");
+        const fallbackModel = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        result = await fallbackModel.generateContent([
+          { inlineData: { data: base64Data, mimeType: "image/jpeg" } },
+          prompt,
+        ]);
+      } else {
+        throw e;
+      }
+    }
 
     const response = await result.response;
     const text = response.text();
