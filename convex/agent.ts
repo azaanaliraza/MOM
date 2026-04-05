@@ -17,7 +17,10 @@ export const extractBusinessContext = internalAction({
   },
   handler: async (ctx, args) => {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-2.5-flash",
+      tools: [{ googleSearch: {} } as any] 
+    });
 
     const prompt = `Act as an expert local marketing strategist. 
     Analyze this business: ${args.businessName} in ${args.city}. 
@@ -43,7 +46,10 @@ export const generateTaskContent = internalAction({
   },
   handler: async (ctx, args) => {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-2.5-flash",
+      tools: [{ googleSearch: {} } as any]
+    });
 
     const aiPrompt = `You are Agent Karya, an expert local marketing strategist.
     Context: ${args.businessContext}

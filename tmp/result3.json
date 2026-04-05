@@ -1,0 +1,58 @@
+{
+  "allConnections": [
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "85f4260b-5124-4314-b992-036250e57594",
+      "clientUniqueUserId": "pg-test-370542b9-a19f-4bb4-8906-116273ff47f2"
+    },
+    {
+      "app": "exa",
+      "status": "ACTIVE",
+      "id": "91300f85-676c-4193-ba9c-391aa1e900bf",
+      "clientUniqueUserId": "pg-test-370542b9-a19f-4bb4-8906-116273ff47f2"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "97ec8e4d-4828-46e7-8214-3a56327617e9",
+      "clientUniqueUserId": "default"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "5e7623b6-0c88-4d4c-b446-954b4bded53f",
+      "clientUniqueUserId": "user_3BYyY77uJSVUp5o7R9qpgdm3wkJ"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "c8e7f7fc-a8ef-423f-833b-4691b6ae33b7",
+      "clientUniqueUserId": "user_3BYyY77uJSVUp5o7R9qpgdm3wkJ"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "b6a052f5-95f7-48aa-90a2-350866fa7cdf",
+      "clientUniqueUserId": "user_3BYyY77uJSVUp5o7R9qpgdm3wkJ"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "8d4d17f2-8f8c-480e-b7a3-0677c9b30d32",
+      "clientUniqueUserId": "user_3BYyY77uJSVUp5o7R9qpgdm3wkJ"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "925f43fb-8c4d-447e-a4f4-ae61a7d165ec",
+      "clientUniqueUserId": "user_3BYyY77uJSVUp5o7R9qpgdm3wkJ"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "a9962c59-138d-40ce-a10b-b637c2cb10dc",
+      "clientUniqueUserId": "user_3BYyY77uJSVUp5o7R9qpgdm3wkJ"
+    }
+  ]
+}

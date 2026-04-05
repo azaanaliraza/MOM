@@ -1,0 +1,18 @@
+{
+  "connections": [
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "97ec8e4d-4828-46e7-8214-3a56327617e9"
+    }
+  ],
+  "executeResult": {
+    "data": {
+      "id": "17927072997256994"
+    },
+    "error": null,
+    "successfull": true,
+    "successful": true,
+    "logId": "log_89v2n1lKDSsM"
+  }
+}

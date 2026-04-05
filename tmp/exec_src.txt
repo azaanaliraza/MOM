@@ -1,0 +1,70 @@
+async executeAction(functionParams) {
+        var _a;
+        const { action, params: inputParams = {}, entityId = this.entityId, nlaText = "", connectedAccountId, } = ZExecuteActionParams.parse({
+            action: functionParams.actionName || functionParams.action,
+            params: functionParams.params,
+            entityId: functionParams.entityId,
+            nlaText: functionParams.nlaText,
+            connectedAccountId: functionParams.connectedAccountId,
+        });
+        if (!entityId && !connectedAccountId) {
+            throw CEG.getCustomError(COMPOSIO_SDK_ERROR_CODES.SDK.NO_CONNECTED_ACCOUNT_FOUND, {
+                message: `No entityId or connectedAccountId provided`,
+                description: `Please provide either entityId or connectedAccountId`,
+            });
+        }
+        let params = inputParams || {};
+        const allInputProcessor = [
+            ...this.internalProcessors.pre,
+            ...(this.userDefinedProcessors.pre
+                ? [this.userDefinedProcessors.pre]
+                : []),
+        ];
+        for (const processor of allInputProcessor) {
+            params = await processor({
+                params: params,
+                actionName: action,
+                client: this.client.backendClient.instance,
+            });
+        }
+        // Custom actions are always executed in the host/local environment for JS SDK
+        let accountId = connectedAccountId;
+        if (await this.isCustomAction(action)) {
+            if (!accountId) {
+                const toolName = await this.userActionRegistry.getToolName({ action });
+                const connectedAccounts = await this.client.connectedAccounts.list({
+                    appNames: toolName,
+                    user_uuid: entityId,
+                    status: "ACTIVE",
+                    showActiveOnly: true,
+                });
+                accountId = (_a = connectedAccounts === null || connectedAccounts === void 0 ? void 0 : connectedAccounts.items[0]) === null || _a === void 0 ? void 0 : _a.id;
+            }
+            // allows the user to use custom actions and tools without a connected account
+            if (!accountId) {
+                logger.warn("No connected account found for the user. If your custom action requires a connected account, please double check if you have active accounts connected to it.");
+            }
+            return this.userActionRegistry.executeAction(action, params, {
+                entityId: entityId,
+                connectionId: accountId,
+            });
+        }
+        const connectedAccountKeys = Object.keys(this.connectedAccountIds);
+        if (connectedAccountKeys.length > 0) {
+            const actionDetails = await this.actions.get({ actionName: action });
+            const appNameKey = connectedAccountKeys.find((key) => key.toLowerCase() === actionDetails.appName);
+            if (appNameKey) {
+                accountId = this.connectedAccountIds[appNameKey];
+            }
+        }
+        const data = await this.client.getEntity(entityId).execute({
+            actionName: action,
+            params: params,
+            text: nlaText,
+            connectedAccountId: accountId,
+        });
+        return this.processResponse(data, {
+            action: action,
+            entityId: entityId,
+        });
+    }

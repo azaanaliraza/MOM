@@ -6,7 +6,10 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 export async function processBusinessImage(base64Image: string, isPremium: boolean) {
   if (!isPremium) throw new Error("Unauthorized: Agent Vision is a Premium feature.");
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-3-flash-preview",
+      tools: [{ googleSearch: {} } as any]
+    });
 
     // Clean Base64: Remove data:image/png;base64, etc.
     const base64Data = base64Image.replace(/^data:image\/\w+;base64,/, "");

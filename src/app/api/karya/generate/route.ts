@@ -92,14 +92,30 @@ export async function POST(req: Request) {
     if (body.toLowerCase().includes("reel script") || body.toLowerCase().includes("video")) type = "reel";
     else if (body.toLowerCase().includes("caption") || body.toLowerCase().includes("poster")) type = "poster";
 
-    const promptMatch = body.match(/PROMPT:\s*(.*)(\n|$)/);
+    const promptMatch = body.match(/PROMPT:\s*(.*?)(\n|$)/);
     const imagePrompt = promptMatch ? promptMatch[1].trim() : "A professional marketing poster for a local shop";
+
+    // Extract Instagram caption from the Content Strategy section
+    const captionMatch = body.match(/\*\*Caption\/Script:\*\*\s*([\s\S]*?)(?=\n\*\*|\n---|\n#)/);
+    let instagramCaption = captionMatch ? captionMatch[1].trim() : "";
+
+    // Extract hashtags
+    const hashtagMatch = body.match(/\*\*Hashtags:\*\*\s*(.*?)(\n|$)/);
+    const hashtags = hashtagMatch ? hashtagMatch[1].trim() : "";
+
+    // If no caption was extracted, create a short one from context
+    if (!instagramCaption) {
+      instagramCaption = `✨ ${taskName} | ${brandName || "Your Local Fav"} 📍 ${location || "India"}\n\nAaj ka special update tumhare liye! 🔥\n\n${hashtags || "#LocalBusiness #ShopLocal #Growth"}`;
+    } else if (hashtags && !instagramCaption.includes("#")) {
+      instagramCaption += `\n\n${hashtags}`;
+    }
 
     return Response.json({ 
         report: body, 
         type,
         imagePrompt,
-        videoPrompt: imagePrompt
+        videoPrompt: imagePrompt,
+        instagramCaption,
     });
 
   } catch (error: any) {

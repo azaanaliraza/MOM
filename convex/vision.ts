@@ -28,7 +28,10 @@ export const extractContext = action({
 
     // 3. Prompt Gemini 1.5 Flash
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-    const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+    const model = genAI.getGenerativeModel({ 
+      model: "gemini-3-flash-preview",
+      tools: [{ googleSearch: {} } as any]
+    });
 
     const prompt = "Extract every detail from this image: product names, prices, special offers, and the overall vibe. Format it as a structured summary for a marketing agent.";
 
