@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     }
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash", // Reverted to user's preferred stable version
+      model: "gemini-3-flash-preview", // Reverted to user's preferred stable version
       tools: [{ googleSearch: {} } as any],
       generationConfig: {
         maxOutputTokens: 16384,

@@ -17,17 +17,20 @@ async function composioExecute(actionName: string, params: Record<string, any>, 
   // Extract app name from action (e.g. INSTAGRAM_CREATE_POST → instagram)
   const appName = actionName.split("_")[0].toLowerCase();
 
+  const requestBody = {
+    entityId,
+    appName,
+    input: params,
+  };
+  console.log(`[MOM] REST → ${actionName} entity=${entityId} body=${JSON.stringify(requestBody)}`);
+
   const res = await fetch(url, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "x-api-key": apiKey,
     },
-    body: JSON.stringify({
-      entityId,
-      appName,
-      input: params,
-    }),
+    body: JSON.stringify(requestBody),
   });
 
   const body = await res.text();
@@ -45,14 +48,21 @@ export const postToSocial = action({
     clerkId: v.string(),
     platform: v.string(),
     content: v.string(),
+    storageId: v.optional(v.string()),
     imageUrl: v.optional(v.string())
   },
   handler: async (ctx, args) => {
+    let publicUrl = args.imageUrl;
+    if (args.storageId) {
+      const url = await ctx.storage.getUrl(args.storageId);
+      if (url) publicUrl = url;
+    }
+
     if (args.platform === "instagram") {
       // Step 1: Create Media Container
       const container = await composioExecute(
         "INSTAGRAM_CREATE_MEDIA_CONTAINER",
-        { ig_user_id: "me", caption: args.content, image_url: args.imageUrl },
+        { ig_user_id: "me", caption: args.content, image_url: publicUrl },
         args.clerkId
       );
 
@@ -111,7 +121,7 @@ export const postToSocial = action({
         "GOOGLEBUSINESSPROFILE_CREATE_POST",
         {
           summary: args.content,
-          ...(args.imageUrl ? { media: [{ sourceUrl: args.imageUrl, mediaFormat: "PHOTO" }] } : {})
+          ...(publicUrl ? { media: [{ sourceUrl: publicUrl, mediaFormat: "PHOTO" }] } : {})
         },
         args.clerkId
       );

@@ -30,3 +30,41 @@ Files\nodejs/node_mo ...
 5/4/2026, 7:09:37 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] Container status (attempt 1): FINISHED'
 5/4/2026, 7:09:37 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_POST entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
 5/4/2026, 7:09:40 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÉ 200 {"data":{"id":"17868142476506303"},"error":null,"successfull":true,"successful":true,"logId":"log_NdjAYf83dN_I"}'
+5/4/2026, 7:14:19 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_MEDIA_CONTAINER entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:14:21 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÉ 413 Body exceeded 1mb limit'
+5/4/2026, 7:14:21 am [CONVEX A(whatsapp:postToSocial)] Uncaught Error: Composio API 413: Body exceeded 1mb limit
+    at composioExecute (../convex/whatsapp.ts:39:6)
+    at async handler (../convex/whatsapp.ts:53:8)
+
+5/4/2026, 7:15:12 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_MEDIA_CONTAINER entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:15:13 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÉ 413 Body exceeded 1mb limit'
+5/4/2026, 7:15:13 am [CONVEX A(whatsapp:postToSocial)] Uncaught Error: Composio API 413: Body exceeded 1mb limit
+    at composioExecute (../convex/whatsapp.ts:39:6)
+    at async handler (../convex/whatsapp.ts:53:8)
+
+5/4/2026, 7:19:27 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_MEDIA_CONTAINER entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:19:29 am [CONVEX A(whatsapp:postToSocial)] [LOG] `[MOM] REST ΓåÉ 200 {"data":{"message":"Failed to create container (status 400). Response: {\\"error\\":{\\"message\\":\\"Only photo or video can be accepted as media type.\\",\\"type\\":\\"OAuthException\\",\\"code\\":9004,\\"error_subcode\\":2207052,\\"is_transient\\":false,\\"error_user_title\\":\\"Media download has failed. The media URI doesn't meet our requirements.\\",\\"error_user_msg\\":\\"The media could not be fetched from this URI: .Please check the limitations section in our development document for more information: https:\\`
+5/4/2026, 7:19:29 am [CONVEX A(whatsapp:postToSocial)] Uncaught Error: Container creation failed: {"data":{"message":"Failed to create container (status 400). Response: {\"error\":{\"message\":\"Only photo or video can be accepted as media type.\",\"type\":\"OAuthException\",\"code\":9004,\"error_subcode\":2207052,\"is_transient\":false,\"error_user_title\":\"Media download has failed. The media
+    at handler (../convex/whatsapp.ts:64:14)
+
+5/4/2026, 7:20:15 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_MEDIA_CONTAINER entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:20:17 am [CONVEX A(whatsapp:postToSocial)] [LOG] `[MOM] REST ΓåÉ 200 {"data":{"message":"Failed to create container (status 400). Response: {\\"error\\":{\\"message\\":\\"Only photo or video can be accepted as media type.\\",\\"type\\":\\"OAuthException\\",\\"code\\":9004,\\"error_subcode\\":2207052,\\"is_transient\\":false,\\"error_user_title\\":\\"Media download has failed. The media URI doesn't meet our requirements.\\",\\"error_user_msg\\":\\"The media could not be fetched from this URI: .Please check the limitations section in our development document for more information: https:\\`
+5/4/2026, 7:20:17 am [CONVEX A(whatsapp:postToSocial)] Uncaught Error: Container creation failed: {"data":{"message":"Failed to create container (status 400). Response: {\"error\":{\"message\":\"Only photo or video can be accepted as media type.\",\"type\":\"OAuthException\",\"code\":9004,\"error_subcode\":2207052,\"is_transient\":false,\"error_user_title\":\"Media download has failed. The media
+    at handler (../convex/whatsapp.ts:64:14)
+
+5/4/2026, 7:22:38 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_MEDIA_CONTAINER entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:22:40 am [CONVEX A(whatsapp:postToSocial)] [LOG] `[MOM] REST ΓåÉ 200 {"data":{"message":"Failed to create container (status 400). Response: {\\"error\\":{\\"message\\":\\"Only photo or video can be accepted as media type.\\",\\"type\\":\\"OAuthException\\",\\"code\\":9004,\\"error_subcode\\":2207052,\\"is_transient\\":false,\\"error_user_title\\":\\"Media download has failed. The media URI doesn't meet our requirements.\\",\\"error_user_msg\\":\\"The media could not be fetched from this URI: .Please check the limitations section in our development document for more information: https:\\`
+5/4/2026, 7:22:40 am [CONVEX A(whatsapp:postToSocial)] Uncaught Error: Container creation failed: {"data":{"message":"Failed to create container (status 400). Response: {\"error\":{\"message\":\"Only photo or video can be accepted as media type.\",\"type\":\"OAuthException\",\"code\":9004,\"error_subcode\":2207052,\"is_transient\":false,\"error_user_title\":\"Media download has failed. The media
+    at handler (../convex/whatsapp.ts:64:14)
+
+5/4/2026, 7:25:46 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_MEDIA_CONTAINER entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:25:47 am [CONVEX A(whatsapp:postToSocial)] [LOG] `[MOM] REST ΓåÉ 200 {"data":{"message":"Failed to create container (status 400). Response: {\\"error\\":{\\"message\\":\\"Only photo or video can be accepted as media type.\\",\\"type\\":\\"OAuthException\\",\\"code\\":9004,\\"error_subcode\\":2207052,\\"is_transient\\":false,\\"error_user_title\\":\\"Media download has failed. The media URI doesn't meet our requirements.\\",\\"error_user_msg\\":\\"The media could not be fetched from this URI: .Please check the limitations section in our development document for more information: https:\\`
+5/4/2026, 7:25:47 am [CONVEX A(whatsapp:postToSocial)] Uncaught Error: Container creation failed: {"data":{"message":"Failed to create container (status 400). Response: {\"error\":{\"message\":\"Only photo or video can be accepted as media type.\",\"type\":\"OAuthException\",\"code\":9004,\"error_subcode\":2207052,\"is_transient\":false,\"error_user_title\":\"Media download has failed. The media
+    at handler (../convex/whatsapp.ts:64:14)
+
+5/4/2026, 7:28:05 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_MEDIA_CONTAINER entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:28:07 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÉ 413 Body exceeded 1mb limit'
+5/4/2026, 7:28:07 am [CONVEX A(whatsapp:postToSocial)] Uncaught Error: Composio API 413: Body exceeded 1mb limit
+    at composioExecute (../convex/whatsapp.ts:39:6)
+    at async handler (../convex/whatsapp.ts:53:8)
+

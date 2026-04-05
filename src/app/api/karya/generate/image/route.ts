@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     const buffer = Buffer.from(arrayBuffer);
 
     // 3. Convert to Base64
-    const base64Image = `data:image/webp;base64,${buffer.toString('base64')}`;
+    const base64Image = `data:image/png;base64,${buffer.toString('base64')}`;
 
     return Response.json({ imageUrl: base64Image });
     
