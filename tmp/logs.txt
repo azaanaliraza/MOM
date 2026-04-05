@@ -68,3 +68,4 @@ Files\nodejs/node_mo ...
     at composioExecute (../convex/whatsapp.ts:39:6)
     at async handler (../convex/whatsapp.ts:53:8)
 
+5/4/2026, 7:38:48 am [CONVEX M(users:makeUserPremium)] [LOG] 'User Tom Teotia is now PREMIUM.'
