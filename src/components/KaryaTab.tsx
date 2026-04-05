@@ -45,7 +45,9 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
   const updateKaryaAsset = useMutation(api.roadmaps.updateKaryaAsset);
   const postToSocial = useAction(api.whatsapp.postToSocial);
   const persistUrl = useAction(api.whatsapp.persistUrlToStorage);
+  const uploadBase64 = useAction(api.whatsapp.uploadBase64ToStorage);
   const [outputId, setOutputId] = useState<string | null>(null);
+  const [instagramCaption, setInstagramCaption] = useState<string | null>(null);
 
   // Load saved output for current day on mount
   useEffect(() => {
@@ -115,6 +117,7 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
       const vidPrmpt = decision.videoPrompt || decision.imagePrompt || "Cinematic business promo";
       setCurrentImagePrompt(imgPrmpt);
       setCurrentVideoPrompt(vidPrmpt);
+      setInstagramCaption(decision.instagramCaption || null);
 
       // Save to DB immediately
       const id = Math.random().toString(36).substr(2, 9);
@@ -207,11 +210,28 @@ export default function KaryaTab({ dayTask, roadmapId, roadmapData, currentDay =
     if (!user) return;
     setPosting(contentType);
     try {
+      // Upload the actual generated image to Convex storage to get a public URL
+      // This ensures the EXACT same image shown on dashboard is posted
+      let publicImageUrl: string | undefined;
+      const imageData = contentType === "poster" ? generatedPoster : generatedReel;
+      
+      if (imageData?.startsWith("data:")) {
+        // Base64 image — upload to Convex storage for a public URL
+        const { url } = await uploadBase64({ base64Data: imageData });
+        publicImageUrl = url;
+      } else if (imageData?.startsWith("http")) {
+        // Already a public URL
+        publicImageUrl = imageData;
+      }
+
+      // Use AI-generated caption, NOT the raw task report
+      const caption = instagramCaption || generatedResult?.instagramCaption || "Check out our latest! ✨ #LocalBusiness #ShopLocal";
+
       await postToSocial({
         clerkId: user.id,
         platform,
-        content: generatedResult?.report?.substring(0, 300) || "Check out our latest!",
-        imageUrl: contentType === "poster" ? generatedPoster || undefined : generatedReel || undefined
+        content: caption.substring(0, 2200),
+        imageUrl: publicImageUrl
       });
       alert(`✅ Posted to ${platform === 'instagram' ? 'Instagram' : 'Google Business'} successfully!`);
     } catch (err: any) {

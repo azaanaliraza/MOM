@@ -24,9 +24,10 @@ export async function POST(req: Request) {
     }
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash", // More stable for JSON production
+      model: "gemini-2.5-flash", // Reverted to user's preferred stable version
+      tools: [{ googleSearch: {} } as any],
       generationConfig: {
-        maxOutputTokens: 16384, // Increased to prevent truncation
+        maxOutputTokens: 16384,
         responseMimeType: "application/json",
       }
     });

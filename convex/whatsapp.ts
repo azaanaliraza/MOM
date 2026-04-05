@@ -1,11 +1,44 @@
 "use node";
-// Sync Trigger: 2026-04-05T02:08:45
 
 import { internalAction, action } from "./_generated/server";
 import { internal } from "./_generated/api";
 import { v } from "convex/values";
 import twilio from "twilio";
 import { ComposioToolSet } from "composio-core";
+
+// Direct Composio REST API helper — bypasses the buggy SDK executeAction
+async function composioExecute(actionName: string, params: Record<string, any>, entityId: string): Promise<any> {
+  const apiKey = process.env.COMPOSIO_API_KEY;
+  if (!apiKey) throw new Error("COMPOSIO_API_KEY not set");
+
+  const url = `https://backend.composio.dev/api/v2/actions/${actionName}/execute`;
+  console.log(`[MOM] REST → ${actionName} entity=${entityId}`);
+
+  // Extract app name from action (e.g. INSTAGRAM_CREATE_POST → instagram)
+  const appName = actionName.split("_")[0].toLowerCase();
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": apiKey,
+    },
+    body: JSON.stringify({
+      entityId,
+      appName,
+      input: params,
+    }),
+  });
+
+  const body = await res.text();
+  console.log(`[MOM] REST ← ${res.status} ${body.substring(0, 500)}`);
+
+  if (!res.ok) {
+    throw new Error(`Composio API ${res.status}: ${body.substring(0, 300)}`);
+  }
+
+  try { return JSON.parse(body); } catch { return body; }
+}
 
 export const postToSocial = action({
   args: {
@@ -15,54 +48,77 @@ export const postToSocial = action({
     imageUrl: v.optional(v.string())
   },
   handler: async (ctx, args) => {
-    try {
-      const composio = new ComposioToolSet({ apiKey: process.env.COMPOSIO_API_KEY! });
-      
-      if (args.platform === "instagram") {
-        console.log(`[MOM] Starting Instagram post orchestration for ${args.clerkId} using 'me' identity`);
-        
-        // 1. Create Media Container
-        const container: any = await composio.executeAction({
-          action: "INSTAGRAM_CREATE_MEDIA_CONTAINER",
-          params: {
-            ig_user_id: "me",
-            caption: args.content,
-            image_url: args.imageUrl
-          },
-          entityId: args.clerkId
-        });
-        const creationId = container?.data?.id || container?.id;
-        if (!creationId) {
-          console.error("[MOM] Container Creation Failed:", container);
-          throw new Error("Failed to create media container. Ensure your Instagram account is a Business/Creator account and public media URL is accessible.");
-        }
+    if (args.platform === "instagram") {
+      // Step 1: Create Media Container
+      const container = await composioExecute(
+        "INSTAGRAM_CREATE_MEDIA_CONTAINER",
+        { ig_user_id: "me", caption: args.content, image_url: args.imageUrl },
+        args.clerkId
+      );
 
-        // 2. Publish
-        console.log(`[MOM] Publishing IG container ${creationId}`);
-        await composio.executeAction({
-          action: "INSTAGRAM_CREATE_POST",
-          params: {
-            ig_user_id: "me",
-            creation_id: creationId
-          },
-          entityId: args.clerkId
-        });
-      } else {
-        // GMB implementation
-        await composio.executeAction({
-          action: "GOOGLEBUSINESSPROFILE_CREATE_POST",
-          params: {
-            summary: args.content,
-            media: args.imageUrl ? [{ sourceUrl: args.imageUrl }] : []
-          },
-          entityId: args.clerkId
-        });
+      const creationId = container?.data?.id;
+      if (!creationId) {
+        throw new Error(`Container creation failed: ${JSON.stringify(container).substring(0, 300)}`);
       }
+
+      // Step 2: Wait for media to be ready (Instagram needs processing time)
+      console.log(`[MOM] Waiting for container ${creationId} to be ready...`);
+      let ready = false;
+      for (let attempt = 0; attempt < 10; attempt++) {
+        await new Promise(r => setTimeout(r, 3000)); // wait 3s between checks
+        try {
+          const status = await composioExecute(
+            "INSTAGRAM_GET_POST_STATUS",
+            { ig_user_id: "me", creation_id: creationId },
+            args.clerkId
+          );
+          const statusCode = status?.data?.status_code || status?.data?.status;
+          console.log(`[MOM] Container status (attempt ${attempt + 1}): ${statusCode}`);
+          if (statusCode === "FINISHED" || statusCode === "finished") {
+            ready = true;
+            break;
+          }
+          if (statusCode === "ERROR" || statusCode === "error") {
+            throw new Error(`Instagram media processing failed: ${JSON.stringify(status?.data).substring(0, 300)}`);
+          }
+        } catch (e: any) {
+          // Status check might 404 — just keep waiting
+          console.log(`[MOM] Status check attempt ${attempt + 1} error: ${e.message?.substring(0, 100)}`);
+        }
+      }
+
+      if (!ready) {
+        // Try publishing anyway after 30s — it might work
+        console.log("[MOM] Container not confirmed ready, attempting publish anyway...");
+      }
+
+      // Step 3: Publish
+      const publishResult = await composioExecute(
+        "INSTAGRAM_CREATE_POST",
+        { ig_user_id: "me", creation_id: creationId },
+        args.clerkId
+      );
+
+      // Check if publish had an error in the response body
+      if (publishResult?.data?.message?.includes("not available") || publishResult?.data?.message?.includes("not ready")) {
+        throw new Error("Instagram media still processing. Please try again in a few seconds.");
+      }
+
+      return { success: true, postId: publishResult?.data?.id };
+
+    } else if (args.platform === "googlebusinessprofile") {
+      const result = await composioExecute(
+        "GOOGLEBUSINESSPROFILE_CREATE_POST",
+        {
+          summary: args.content,
+          ...(args.imageUrl ? { media: [{ sourceUrl: args.imageUrl, mediaFormat: "PHOTO" }] } : {})
+        },
+        args.clerkId
+      );
       return { success: true };
-    } catch (error: any) {
-      console.error("[MOM] Composio Post Failure:", error);
-      const errorMsg = error?.message || (typeof error === 'string' ? error : JSON.stringify(error)) || "Unknown error";
-      throw new Error(`Social post failed: ${errorMsg}`);
+
+    } else {
+      throw new Error(`Unsupported platform: ${args.platform}`);
     }
   }
 });
@@ -73,6 +129,26 @@ export const persistUrlToStorage = action({
     const response = await fetch(args.url);
     const blob = await response.blob();
     return await ctx.storage.store(blob);
+  },
+});
+
+export const uploadBase64ToStorage = action({
+  args: { base64Data: v.string() },
+  handler: async (ctx, args) => {
+    // Strip the data URL prefix (e.g. "data:image/webp;base64,")
+    const matches = args.base64Data.match(/^data:([^;]+);base64,(.+)$/);
+    if (!matches) throw new Error("Invalid base64 data URL");
+    
+    const mimeType = matches[1];
+    const rawBase64 = matches[2];
+    const buffer = Buffer.from(rawBase64, "base64");
+    const blob = new Blob([buffer], { type: mimeType });
+    
+    const storageId = await ctx.storage.store(blob);
+    const url = await ctx.storage.getUrl(storageId);
+    if (!url) throw new Error("Failed to get storage URL");
+    
+    return { storageId, url };
   },
 });
 
@@ -89,7 +165,7 @@ export const testCloud = action({
 
 export const sendWhatsAppNudge = internalAction({
   args: {
-    phoneNumber: v.string(), // E.164 format: +91XXXXXXXXXX
+    phoneNumber: v.string(),
     brandName: v.string()
   },
   handler: async (_ctx, args) => {
@@ -177,6 +253,7 @@ export const sendWelcomeMessage = internalAction({
     }
   },
 });
+
 export const getConnectedPlatforms = action({
   args: { clerkId: v.string() },
   handler: async (ctx, args) => {

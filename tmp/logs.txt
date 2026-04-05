@@ -1,0 +1,32 @@
+﻿node.exe : Watching logs 
+for dev deployment 
+necessary-fish-39...
+At line:1 char:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: (W  
+  atching logs f...sary   
+ -fish-39...:String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+5/4/2026, 7:04:41 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_MEDIA_CONTAINER entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:04:45 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÉ 200 {"data":{"id":"17927075034256994"},"error":null,"successfull":true,"successful":true,"logId":"log_XFd2h3rXAe8g"}'
+5/4/2026, 7:04:45 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_POST entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:04:46 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÉ 200 {"data":{"message":"Failed to create post (status 400). Response: {\\"error\\":{\\"message\\":\\"Media ID is not available\\",\\"type\\":\\"OAuthException\\",\\"code\\":9007,\\"error_subcode\\":2207027,\\"is_transient\\":false,\\"error_user_title\\":\\"Cannot Publish\\",\\"error_user_msg\\":\\"The media is not ready for publishing, please wait for a moment\\",\\"fbtrace_id\\":\\"AXxB1J6ADzZSf4DDQoPa3k1\\"}}","status_code":400},"error":"Failed to create post (status 400). Response: {\\"error\\":{\\"message\\":\\"Media ID is not '
+5/4/2026, 7:09:29 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_MEDIA_CONTAINER entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:09:34 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÉ 200 {"data":{"id":"17927075538256994"},"error":null,"successfull":true,"successful":true,"logId":"log_l9vg45l66PnF"}'
+5/4/2026, 7:09:34 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] Waiting for container 17927075538256994 to be ready...'
+5/4/2026, 7:09:37 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_GET_POST_STATUS entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:09:37 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÉ 200 {"data":{"id":"17927075538256994","status_code":"FINISHED"},"error":null,"successfull":true,"successful":true,"logId":"log_jGWlxw52__3O"}'
+5/4/2026, 7:09:37 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] Container status (attempt 1): FINISHED'
+5/4/2026, 7:09:37 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÆ INSTAGRAM_CREATE_POST entity=user_3BYyY77uJSVUp5o7R9qpgdm3wkJ'
+5/4/2026, 7:09:40 am [CONVEX A(whatsapp:postToSocial)] [LOG] '[MOM] REST ΓåÉ 200 {"data":{"id":"17868142476506303"},"error":null,"successfull":true,"successful":true,"logId":"log_NdjAYf83dN_I"}'

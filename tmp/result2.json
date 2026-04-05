@@ -1,0 +1,66 @@
+{
+  "defaultConnections": [
+    {
+      "app": "instagram",
+      "status": "EXPIRED",
+      "id": "88883a99-73c3-4753-b4b1-ed8c8d930d33"
+    },
+    {
+      "app": "instagram",
+      "status": "EXPIRED",
+      "id": "1f21dc2b-3036-4d2a-acad-806a94cfb083"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "97ec8e4d-4828-46e7-8214-3a56327617e9"
+    }
+  ],
+  "allConnections": [
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "85f4260b-5124-4314-b992-036250e57594"
+    },
+    {
+      "app": "exa",
+      "status": "ACTIVE",
+      "id": "91300f85-676c-4193-ba9c-391aa1e900bf"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "97ec8e4d-4828-46e7-8214-3a56327617e9"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "5e7623b6-0c88-4d4c-b446-954b4bded53f"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "c8e7f7fc-a8ef-423f-833b-4691b6ae33b7"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "b6a052f5-95f7-48aa-90a2-350866fa7cdf"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "8d4d17f2-8f8c-480e-b7a3-0677c9b30d32"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "925f43fb-8c4d-447e-a4f4-ae61a7d165ec"
+    },
+    {
+      "app": "instagram",
+      "status": "ACTIVE",
+      "id": "a9962c59-138d-40ce-a10b-b637c2cb10dc"
+    }
+  ]
+}
